@@ -1,0 +1,30 @@
+{
+  "name": "databox",
+  "version": "0.1.0",
+  "description": "A Nodejs library for interfacing with Databox APIs",
+  "main": "databox.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/me-box/node-databox.git"
+  },
+  "keywords": [
+    "databox",
+    "app",
+    "driver",
+    "library"
+  ],
+  "author": "Yousef Amar <yousef@amar.io> (http://yousefamar.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/me-box/node-databox/issues"
+  },
+  "homepage": "https://github.com/me-box/node-databox#readme",
+  "dependencies": {
+    "containerized": "^1.0.2",
+    "request": "^2.79.0",
+    "ws": "^2.2.0"
+  }
+}
