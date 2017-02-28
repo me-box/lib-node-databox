@@ -1,5 +1,5 @@
 {
-  "name": "databox",
+  "name": "node-databox",
   "version": "0.1.0",
   "description": "A Nodejs library for interfacing with Databox APIs",
   "main": "databox.js",
