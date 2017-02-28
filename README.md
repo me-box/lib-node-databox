@@ -12,7 +12,7 @@ To use this library in your node project, run:
 
 and then within your project:
 
-	const databox = require('databox');
+	const databox = require('node-databox');
 
 Usage
 -----
