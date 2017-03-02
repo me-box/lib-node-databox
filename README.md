@@ -19,11 +19,11 @@ Usage
 
 > :warning: While this library is at [0.X.X](http://semver.org/spec/v2.0.0.html) the API may change.
 
-### getRootCatalog() ###
+### catalog.getRootCatalog() ###
 
 **Returns** A `Promise` that resolves with a JSON object of root catalog or rejects with an error.
 
-### getStoreCatalog(href) ###
+### catalog.getStoreCatalog(href) ###
 
 **Parameters**
 
@@ -33,17 +33,17 @@ Usage
 
 **Returns** A `Promise` that resolves with a JSON object of a store catalog or rejects with an error.
 
-### listAvailableStores() ###
+### catalog.listAvailableStores() ###
 
 A convenience function for listing available stores.
 
 **Returns** A `Promise` that resolves with an array of objects with a store `description`, `hostname`, and `href`, or rejects with an error
 
-### walkStoreCatalogs() ###
+### catalog.walkStoreCatalogs() ###
 
 **Returns** A `Promise` that resolves with a JSON array of all store catalogs the calling container has access to or rejects with an error
 
-### mapStoreCatalogs(callback, thisArg) ###
+### catalog.mapStoreCatalogs(callback, thisArg) ###
 
 **Parameters**
 
