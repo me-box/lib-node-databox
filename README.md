@@ -54,6 +54,34 @@ A convenience function for listing available stores.
 
 **Returns** A `Promise` that resolves with an array of return values of the callback called on each catalog or rejects with an error
 
+### catalog.registerDatasource(href, metadata) ###
+
+**Parameters**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| _href_     | `String` | The store href |
+| _metadata_ | `Object` | Dataource metadata |
+
+**Example**
+
+	catalog.registerDatasource('https://some-store:8080', {
+		description: 'Test item',
+		contentType: 'text/plain',
+		vendor: 'Databox Inc.',
+		tyoe: 'Test',
+		datasourceid: 'MyLongId',
+		storeType: 'databox-store-blob',
+		// Optional
+		isActuator: false,
+		// Optional
+		unit: 'cm',
+		// Optional
+		location: 'kitchen'
+	});
+
+**Returns** A `Promise` that resolves or rejects with an error
+
 ### timeseries.latest(href, dataSourceID) ###
 
 Reads the latest entry from a given time series store
