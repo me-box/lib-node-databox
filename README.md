@@ -165,7 +165,7 @@ Writes to a given key-value store
 
 **Returns** A `Promise` that resolves with the document written to the store or rejects with an error
 
-### notifications.connect(href) ###
+### subscriptions.connect(href) ###
 
 Connects to a target store's notification service
 
@@ -177,7 +177,7 @@ Connects to a target store's notification service
 
 **Returns** A `Promise` that resolves with an `EventEmitter` that emits `open` when the notification stream is opened, and `data` with store write event notifications of data for every route the connecting container is subscribed to. The callback function for that event has three parameters: `hostname` (the source store), `datasourceID` (the triggering datasource), and `data` which is the data actually written to the store. Otherwise if there's an error setting up the connection, the `Promise` rejects with an error.
 
-### notifications.subscribe(href, dataSourceID, type) ###
+### subscriptions.subscribe(href, dataSourceID, type) ###
 
 Subscribes the caller to write notifications for a given route
 
@@ -191,7 +191,7 @@ Subscribes the caller to write notifications for a given route
 
 **Returns** A `Promise` that resolves silently if the subscription was a success or rejects with an error
 
-### notifications.unsubscribe(href, dataSourceID, type) ###
+### subscrciptions.unsubscribe(href, dataSourceID, type) ###
 
 Unsubscribes the caller to write notifications for a given route
 
