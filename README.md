@@ -19,6 +19,16 @@ Usage
 
 > :warning: While this library is at [0.X.X](http://semver.org/spec/v2.0.0.html) the API may change.
 
+### waitForStoreStatus(href, status, maxRetries=10) ###
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| _href_ | `String` | The store href |
+| _status_ | `String` | The status to wait for (e.g. 'active' or 'standby') |
+| _maxRetries_ | `Number` | Optional number of times to retry before timing out (default 10) |
+
+**Returns** A `Promise` that resolves when a store status matches `status` or rejects with an error.
+
 ### catalog.getRootCatalog() ###
 
 **Returns** A `Promise` that resolves with a JSON object of root catalog or rejects with an error.
