@@ -144,7 +144,7 @@ Writes to a given time series store
 | ---- | ---- | ----------- |
 | _href_         | `String` | The target store href |
 | _dataSourceID_ | `String` | The target datasource ID |
-| _data_         | `Object` | An object to write to a time series store endpoint |
+| _data_         | `Object` | An object to write to a datasource time series |
 
 **Returns** A `Promise` that resolves with the document written to the store (including automatically added timestamp) or rejects with an error
 
@@ -156,8 +156,8 @@ Reads from a given key-value store
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _href_         | `String` | The target store href |
-| _dataSourceID_ | `String` | The target datasource ID |
+| _href_ | `String` | The target store href |
+| _key_  | `String` | The target key |
 
 **Returns** A `Promise` that resolves with the document at this endpoint or rejects with an error
 
@@ -169,9 +169,9 @@ Writes to a given key-value store
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _href_         | `String` | The target store href |
-| _dataSourceID_ | `String` | The target datasource ID |
-| _data_         | `Object` | An object to write to a keyValue store endpoint |
+| _href_ | `String` | The target store href |
+| _key_  | `String` | The target key |
+| _data_ | `Object` | The value to write |
 
 **Returns** A `Promise` that resolves with the document written to the store or rejects with an error
 
