@@ -1,6 +1,6 @@
 {
   "name": "node-databox",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "A Nodejs library for interfacing with Databox APIs",
   "main": "databox.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/me-box/node-databox#readme",
   "dependencies": {
     "containerized": "^1.0.2",
+    "promise-retry": "^1.1.1",
     "request": "^2.79.0",
     "ws": "^2.2.0"
   }
