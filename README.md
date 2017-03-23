@@ -214,3 +214,31 @@ Unsubscribes the caller to write notifications for a given route
 | _type_         | `String` | "ts" for time series stores or "key" for key-value stores |
 
 **Returns** A `Promise` that resolves silently if the unsubscription was a success or rejects with an error
+
+### export.longpoll(destination, payload) ###
+
+Exports data and retrieves response via long polling
+
+**Parameters**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| _destination_ | `String` | An HTTPS URL to the export destination |
+| _payload_     | `Object` | Data to POST to destination |
+
+**Returns** A `Promise` that resolves with the destination server's response or rejects with an error
+
+### export.queue(destination, payload) ###
+
+NB: Currently unimplemented
+
+Pushes data to an export queue and retrieves response via polling
+
+**Parameters**
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| _destination_ | `String` | An HTTPS URL to the export destination |
+| _payload_     | `Object` | Data to POST to destination |
+
+**Returns** A `Promise` that resolves with the destination server's response or rejects with an error
