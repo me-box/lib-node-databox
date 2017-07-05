@@ -8,7 +8,7 @@ Installation
 
 To use this library in your node project, run:
 
-	npm install --save databox
+	npm install --save node-databox
 
 and then within your project:
 
