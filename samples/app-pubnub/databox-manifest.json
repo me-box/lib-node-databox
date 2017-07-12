@@ -1,0 +1,50 @@
+{
+	"manifest-version": 1,
+
+	"name": "databox-app-sensordemo-node",
+	"databox-type": "app",
+	"version": "0.1.0",
+
+	"description": "A sensor network demo Databox app in Node.js",
+	"author": "John Moore <jmoore@zedstar.org>",
+	"license": "MIT",
+	"tags": [
+		"sensor",
+		"app",
+		"nodejs"
+	],
+
+	"homepage": "https://github.com/me-box/databox-app-sensordemo-node",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/me-box/databox-app-sensordemo-node"
+	},
+
+	"packages": [
+		{
+			"name": "Store read",
+			"purpose": "",
+			"install": "required",
+			"risks": "",
+			"benefits": "",
+			"datastores": [ "test" ]
+		}
+	],
+
+	"allowed-combinations": [],
+
+	"datasources": [
+		{
+			"type": "test",
+			"required": true,
+			"name": "test",
+			"clientid": "test",
+			"granularities": []
+		}
+	],
+
+	"resource-requirements": {
+                "store": "databox-store-blob"
+        }
+
+}

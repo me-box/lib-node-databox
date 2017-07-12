@@ -1,0 +1,31 @@
+{
+  "name": "databox-app-sensordemo-node",
+  "version": "0.1.0",
+  "description": "A sensor network demo Databox app in Node.js",
+  "config": {
+    "databox-registry": "localhost:5000"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "docker build -t $npm_package_name .",
+    "release": "docker tag $npm_package_name $npm_package_config_databox_registry/$npm_package_name && docker push $npm_package_config_databox_registry/$npm_package_name"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/me-box/databox-app-sensordemo-node.git"
+  },
+  "keywords": [
+    "sensor",
+    "app",
+    "nodejs"
+  ],
+  "author": "John Moore <jmoore@zedstar.org>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/me-box/databox-app-sensordemo-node/issues"
+  },
+  "homepage": "https://github.com/me-box/databox-app-sensordemo-node#readme",
+  "dependencies": {
+    "node-databox": "^0.3.0"
+  }
+}
