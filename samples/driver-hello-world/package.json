@@ -1,14 +1,14 @@
 {
-  "name": "databox-driver-template-node",
+  "name": "driver-hello-world",
   "version": "0.1.0",
   "description": "A template Databox driver in Node.js",
   "scripts": {
     "start": "node main.js",
-    "publish": "docker build -t databox-driver-template-node . && docker tag databox-driver-template-node localhost:5000/databox-driver-template-node && docker push localhost:5000/databox-driver-template-node"
+    "publish": "docker build -t driver-hello-world . && docker tag driver-hello-world localhost:5000/driver-hello-world && docker push localhost:5000/driver-hello-world"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yousefamar/databox-driver-template-node.git"
+    "url": "git+https://github.com/me-box/lib-node-databox.git"
   },
   "keywords": [
     "template",
@@ -19,10 +19,10 @@
   "author": "Yousef Amar <yousef@amar.io> (http://yousefamar.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yousefamar/databox-driver-template-node/issues"
+    "url": "https://github.com/me-box/lib-node-databox/issues"
   },
-  "homepage": "https://github.com/yousefamar/databox-driver-template-node#readme",
+  "homepage": "https://github.com/me-box/lib-node-databox#readme",
   "dependencies": {
-    "node-databox": "^0.5.0"
+    "node-databox": "^0.5.1"
   }
 }

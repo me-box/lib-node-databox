@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/me-box/databox-app-template-node.git"
+    "url": "git+https://github.com/me-box/lib-node-databox.git"
   },
   "keywords": [
     "template",
@@ -22,10 +22,10 @@
   "author": "Yousef Amar <yousef@amar.io> (http://yousefamar.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/me-box/databox-app-template-node/issues"
+    "url": "https://github.com/me-box/lib-node-databox/issues"
   },
-  "homepage": "https://github.com/me-box/databox-app-template-node#readme",
+  "homepage": "https://github.com/me-box/lib-node-databox#readme",
   "dependencies": {
-    "node-databox": "^0.5.0"
+    "node-databox": "^0.5.1"
   }
 }
