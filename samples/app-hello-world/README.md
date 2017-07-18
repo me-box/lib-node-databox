@@ -3,10 +3,9 @@
 An example Databox app in Node.js
 
 
-To use 
+# To use 
 
-clone the git repo into the databox root directory 
-
+Clone the git repo into the databox root directory 
 
      git clone https://github.com/me-box/lib-node-databox.git
 
