@@ -1,7 +1,7 @@
 {
 	"manifest-version": 1,
 
-	"name": "databox-driver-sensordemo-node",
+	"name": "driver-pubnub",
 	"databox-type": "driver",
 	"version": "0.1.0",
 
@@ -15,10 +15,10 @@
 		"nodejs"
 	],
 
-	"homepage": "https://github.com/me-box/databox-driver-sensordemo-node",
+	"homepage": "https://github.com/me-box/lib-node-databox",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/me-box/databox-driver-sensordemo-node"
+		"url": "git+https://github.com/me-box/lib-node-databox"
 	},
 
 	"packages": [
@@ -43,6 +43,6 @@
 	],
 
 	"resource-requirements": {
-		"store": "databox-store-blob"
+		"store": "store-json"
 	}
 }
