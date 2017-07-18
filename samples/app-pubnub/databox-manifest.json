@@ -1,7 +1,7 @@
 {
 	"manifest-version": 1,
 
-	"name": "databox-app-sensordemo-node",
+	"name": "app-pubnub",
 	"databox-type": "app",
 	"version": "0.1.0",
 
@@ -14,10 +14,10 @@
 		"nodejs"
 	],
 
-	"homepage": "https://github.com/me-box/databox-app-sensordemo-node",
+	"homepage": "https://github.com/me-box/lib-node-databox",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/me-box/databox-app-sensordemo-node"
+		"url": "git+https://github.com/me-box/lib-node-databox"
 	},
 
 	"packages": [
@@ -44,7 +44,7 @@
 	],
 
 	"resource-requirements": {
-                "store": "databox-store-blob"
+                "store": "store-json"
         }
 
 }
