@@ -1,5 +1,5 @@
 {
-  "name": "databox-app-template-node",
+  "name": "app-hello-world",
   "version": "0.1.0",
   "description": "A template Databox app in Node.js",
   "config": {
@@ -7,12 +7,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "docker build -t $npm_package_name .",
-    "release": "docker tag $npm_package_name $npm_package_config_databox_registry/$npm_package_name && docker push $npm_package_config_databox_registry/$npm_package_name"
+    "build": "docker build -t $npm_package_name ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/me-box/databox-app-template-node.git"
+    "url": "git+https://github.com/me-box/lib-node-databox.git"
   },
   "keywords": [
     "template",
@@ -22,10 +21,10 @@
   "author": "Yousef Amar <yousef@amar.io> (http://yousefamar.com/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/me-box/databox-app-template-node/issues"
+    "url": "https://github.com/me-box/lib-node-databox/issues"
   },
-  "homepage": "https://github.com/me-box/databox-app-template-node#readme",
+  "homepage": "https://github.com/me-box/lib-node-databox#readme",
   "dependencies": {
-    "node-databox": "^0.5.0"
+    "node-databox": "^0.5.1"
   }
 }

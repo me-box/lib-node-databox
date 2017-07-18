@@ -1,14 +1,14 @@
 {
-  "name": "databox-driver-sensordemo-node",
+  "name": "driver-pubnub",
   "version": "0.1.0",
   "description": "A sensor network Databox driver in Node.js",
   "scripts": {
     "start": "node main.js",
-    "publish": "docker build -t databox-driver-sensordemo-node . && docker tag databox-driver-sensordemo-node localhost:5000/databox-driver-sensordemo-node && docker push localhost:5000/databox-driver-sensordemo-node"
+    "publish": "docker build -t driver-pubnub . && docker tag driver-pubnub"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jptmoore/databox-driver-sensordemo-node.git"
+    "url": "git+https://github.com/me-box/driver-pubnub.git"
   },
   "keywords": [
     "sensor",
@@ -19,12 +19,12 @@
   "author": "John Moore <jmoore@zedstar.org>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jptmoore/databox-driver-sensordemo-node/issues"
+    "url": "https://github.com/me-box/lib-node-databox/issues"
   },
-  "homepage": "https://github.com/jptmoore/databox-driver-sensordemo-node#readme",
+  "homepage": "https://github.com/me-box/lib-node-databox/",
   "dependencies": {
     "databox": "^2.0.1",
-    "node-databox": "^0.5.0",
+    "node-databox": "^0.5.1",
     "pubnub": "^4.12.0"
   }
 }

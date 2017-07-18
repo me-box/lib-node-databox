@@ -1,7 +1,7 @@
 {
 	"manifest-version": 1,
 
-	"name": "databox-app-template-node",
+	"name": "app-hello-world",
 	"databox-type": "app",
 	"version": "0.1.0",
 
@@ -14,20 +14,20 @@
 		"nodejs"
 	],
 
-	"homepage": "https://github.com/me-box/databox-app-template-node",
+	"homepage": "https://github.com/me-box/lib-node-databox",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/me-box/databox-app-template-node"
+		"url": "git+https://github.com/me-box/lib-node-databox"
 	},
 
 	"packages": [
 		{
-			"name": "Test",
+			"name": "test",
 			"purpose": "Test package",
 			"install": "required",
 			"risks": "Leaking all your data.",
 			"benefits": "Demoing the apps.",
-			"datastores": [ "DS_test" ]
+			"datastores": [ "test" ]
 		}
 	],
 
@@ -38,7 +38,7 @@
 			"type": "test",
 			"required": true,
 			"name": "test",
-			"clientid": "DS_test",
+			"clientid": "test",
 			"granularities": []
 		}
 	],
@@ -53,5 +53,7 @@
 		}
 	],
 
-	"resource-requirements": {}
+	"resource-requirements": {
+		"store" : "store-json"
+	}
 }
