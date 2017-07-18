@@ -1,5 +1,5 @@
 {
-  "name": "databox-app-template-node",
+  "name": "app-hello-world",
   "version": "0.1.0",
   "description": "A template Databox app in Node.js",
   "config": {
