@@ -23,6 +23,6 @@
   },
   "homepage": "https://github.com/me-box/lib-node-databox#readme",
   "dependencies": {
-    "node-databox": "^0.5.1"
+    "node-databox": "^0.5.2"
   }
 }

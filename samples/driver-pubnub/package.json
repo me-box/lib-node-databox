@@ -24,7 +24,7 @@
   "homepage": "https://github.com/me-box/lib-node-databox/",
   "dependencies": {
     "databox": "^2.0.1",
-    "node-databox": "^0.5.1",
+    "node-databox": "^0.5.2",
     "pubnub": "^4.12.0"
   }
 }
