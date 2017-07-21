@@ -4,13 +4,7 @@ var express = require("express");
 
 var store = 'https://databox-driver-sensordemo-node-databox-store-blob:8080'
 
-var HTTPS_SERVER_CERT = process.env.HTTPS_SERVER_CERT || '';
-var HTTPS_SERVER_PRIVATE_KEY = process.env.HTTPS_SERVER_PRIVATE_KEY || '';
-
-var credentials = {
-	key:  HTTPS_SERVER_PRIVATE_KEY,
-	cert: HTTPS_SERVER_CERT,
-};
+const credentials = databox.getHttpsCredentials()
 
 var app = express();
 
