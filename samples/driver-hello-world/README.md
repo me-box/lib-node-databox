@@ -17,9 +17,9 @@ Add the below to the end of docker-compose-dev-local-images.yaml (White space is
              dockerfile: Dockerfile${DATABOX_ARCH}
          image: driver-hello-world
          
- Then run 
+ Then run on terminal.
  
- terminal$ ./databox-start dev 
+ ./databox-start dev 
       
 This will build all the local databox images and set up the local app store.
 
