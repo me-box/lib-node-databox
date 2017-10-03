@@ -17,19 +17,12 @@ Add the below to the end of docker-compose-dev-local-images.yaml (White space is
              dockerfile: Dockerfile${DATABOX_ARCH}
          image: driver-hello-world
          
- Then run 
+ Then run on terminal.
  
-      ./startDatbox.sh dev 
+ ./databox-start dev 
       
-This will build all the local databox images and set up the local app store. 
- 
-Finaly upload the manifest file:
- 
-     go to http://127.0.0.1:8181 in a web browser
-     
-     select upload and chose /lib-node-databox/samples/driver-hello-world/databox-manifest.json
-     
-     
- 
-   
+This will build all the local databox images and set up the local app store.
 
+Next step is to open the local manifest server in a web brower by pointing this address http://127.0.0.1:8181 and upload app-manifest /lib-node-databox/samples/driver-hello-world/databox-manifest.json. Once manifest is uploaded, close the the local manifest server by closing the browser.
+
+If you point browser to databox user interface https://127.0.0.1:8989, you can see app-hello-world in the registered drivers tabs. Now using databox user interface you can install  the driver by clicking on the install button.
