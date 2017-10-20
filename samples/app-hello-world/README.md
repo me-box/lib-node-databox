@@ -9,7 +9,8 @@ Clone the git repo into the databox root directory
 
      git clone https://github.com/me-box/lib-node-databox.git
 
-Run the following commands in a terminal 
+Run the following commands in a terminal. To build the local databox image. 
+ 
 
 ```
 cd ./lib-node-databox/samples/app-hello-world
@@ -21,7 +22,6 @@ docker build -t app-hello-world .
       ./databox-start 
       
       
-This will build all the local databox images and set up the local app store. 
  
 Next step is to open the local manifest server in a web brower by pointing this address
 `http://127.0.0.1:8181
