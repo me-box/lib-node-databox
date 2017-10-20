@@ -9,17 +9,17 @@ Clone the git repo into the databox root directory
 
      git clone https://github.com/me-box/lib-node-databox.git
 
-Add the below to the end of docker-compose-dev-local-images.yaml (White space is important)
+Run the following commands in a terminal 
 
-     app-hello-world:
-         build:
-             context: ./lib-node-databox/samples/app-hello-world
-             dockerfile: Dockerfile${DATABOX_ARCH}
-         image: app-hello-world
-         
- Then run 
+```
+cd ./lib-node-databox/samples/app-hello-world
+docker build -t app-hello-world .
+```
+    
+ Then run (If databox is not running)
  
-      ./databox-start dev 
+      ./databox-start 
+      
       
 This will build all the local databox images and set up the local app store. 
  
