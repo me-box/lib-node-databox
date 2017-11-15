@@ -26,6 +26,6 @@
     "containerized": "^1.0.2",
     "promise-retry": "^1.1.1",
     "request": "^2.79.0",
-    "ws": "^2.2.0"
+    "ws": "^3.3.1"
   }
 }
