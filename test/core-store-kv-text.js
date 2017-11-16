@@ -44,7 +44,7 @@ describe('KV Client TEXT', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,500);
+                        setTimeout(resolve,1000);
                     });
                 })
                 .then(()=>{ return kvc.Write(dataSourceID,'data12345','TEXT'); })

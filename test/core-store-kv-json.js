@@ -54,8 +54,9 @@ describe('KV Client JSON', function() {
     describe('#GetDatasourceCataloge', function() {
         it('should Register Datasource in the catalogue', function() {
             let dsmObj = {};
-            return databox.DataSourceMetadataToHypercat(dsm)
-                .then((dsmRes)=>{
+            return databox.DataSourceMetadataToHypercat(serverEndPoint+'/kv/',dsm)
+            .then((dsmRes)=>{
+                    console.log(dsmRes);
                     dsmObj = dsmRes;
                     return kvc.GetDatasourceCatalogue();
                 })
@@ -80,7 +81,7 @@ describe('KV Client JSON', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,500);
+                        setTimeout(resolve,1000);
                     });
                 })
                 .then(()=>{ return kvc.Write(dataSourceID,{"test":"obs1"},'JSON');})
