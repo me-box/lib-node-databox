@@ -33,7 +33,7 @@ describe('KV Client TEXT', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,'TEXT',999)
+            return kvc.Observe(dataSourceID,999,'TEXT')
               .then((emitter)=>{
 
                     receivedData = [];

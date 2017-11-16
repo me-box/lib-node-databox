@@ -69,7 +69,7 @@ describe('KV Client JSON', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,'JSON',999)
+            return kvc.Observe(dataSourceID,999,'JSON')
               .then((emitter)=>{
 
                     receivedData = [];

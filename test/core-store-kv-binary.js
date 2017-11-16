@@ -33,7 +33,7 @@ describe('KV Client BINARY', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,'BINARY',999)
+            return kvc.Observe(dataSourceID,999,'BINARY')
               .then((emitter)=>{
 
                     receivedData = [];
