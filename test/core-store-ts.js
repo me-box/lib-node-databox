@@ -118,7 +118,6 @@ describe('TS Client', function() {
           return tsc.Latest(dataSourceID)
               .then((res)=>{
                 console.log('ReadAt3:: ',Date.now())
-                console.log(res);
                 assert.deepEqual(res.data,{"test":"dataAT3"});
                 //assert.equal(res.timestamp,someTimeInTheFuture);
             });
@@ -191,7 +190,6 @@ describe('TS Client', function() {
 
                     receivedData = [];
                     emitter.on('data',function(d){
-                        console.log(d);
                         receivedData.push(d);
                     });
 

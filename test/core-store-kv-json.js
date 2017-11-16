@@ -45,7 +45,6 @@ describe('KV Client JSON', function() {
         it('should Register Datasource in the catalogue', function() {
           return kvc.RegisterDatasource(dsm)
               .then((res)=>{
-                console.log(res);
                 assert.equal(res,"created");
             });
         });
@@ -56,7 +55,6 @@ describe('KV Client JSON', function() {
             let dsmObj = {};
             return databox.DataSourceMetadataToHypercat(serverEndPoint+'/kv/',dsm)
             .then((dsmRes)=>{
-                    console.log(dsmRes);
                     dsmObj = dsmRes;
                     return kvc.GetDatasourceCatalogue();
                 })
