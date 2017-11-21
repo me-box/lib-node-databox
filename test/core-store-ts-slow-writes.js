@@ -9,7 +9,7 @@ describe('TS Client', function() {
     let someTimeInTheFuture = Date.now() + 10000;
     let dataSourceID = 'test' + Date.now(); //each test gets a fresh dataSourceID
 
-    let numRecordsToWrite = 10;
+    let numRecordsToWrite = 100;
 
     after(function () {
         tsc.zestClient.ZMQsoc.close();
@@ -23,9 +23,9 @@ describe('TS Client', function() {
                 tsc.Write(dataSourceID,{"test":"data"+j})
                 .then((resp)=>{
                     assert.equal('created',resp);
-                    console.log(resp + " " + j);
-                    j--;
-                    if (j > 0) {
+                    console.log(resp + " " + j + " " + Date.now());
+                    j++;
+                    if (j <= numRecordsToWrite) {
                         write(j,resolve);
                     } else {
                         console.log("resolving done writing");
@@ -35,7 +35,7 @@ describe('TS Client', function() {
         };
 
         return new Promise((resolve,reject)=>{
-            write(numRecordsToWrite,resolve);
+            write(0,resolve);
         })
         .then(() => {
             console.log("Done writing at " + Date.now());
