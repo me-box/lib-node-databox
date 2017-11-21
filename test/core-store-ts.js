@@ -92,27 +92,29 @@ describe('TS Client', function() {
                 assert.equal(res,"created");
             });
     });
-    });
+
 
     describe('#WriteAT 2', function() {
-    it('should write data at the correct time stamp and resolve created', function() {
-        return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 200 ,{"test":"dataAT2"})
-            .then((res)=>{
-                console.log('WriteAT2:: ',Date.now())
-                assert.equal(res,"created");
-            });
-    });
+        it('should write data at the correct time stamp and resolve created', function() {
+            return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 200 ,{"test":"dataAT2"})
+                .then((res)=>{
+                    console.log('WriteAT2:: ',Date.now())
+                    assert.equal(res,"created");
+                });
+        });
     });
 
     describe('#WriteAT 3', function() {
-    it('should write data at the correct time stamp and resolve created', function() {
-        return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 300 ,{"test":"dataAT3"})
-            .then((res)=>{
-                console.log('WriteAT3:: ',Date.now())
-                assert.equal(res,"created");
+        it('should write data at the correct time stamp and resolve created', function() {
+            return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 300 ,{"test":"dataAT3"})
+                .then((res)=>{
+                    console.log('WriteAT3:: ',Date.now())
+                    assert.equal(res,"created");
+                });
             });
+        });
     });
-    });
+
     describe('#Latest with WriteAT', function() {
         it('should read latest value and return it with ts ' + someTimeInTheFuture, function() {
           return tsc.Latest(dataSourceID)
@@ -134,10 +136,30 @@ describe('TS Client', function() {
         });
       });
 
+      describe('#FirstN', function() {
+        it('should read first N values and return an array', function() {
+          return tsc.FirstN(dataSourceID,2)
+              .then((res)=>{
+                assert.deepEqual(res[0].data,{"test":"data"});
+                assert.deepEqual(res[1].data,{"test":"data1"});
+            });
+        });
+      });
+
+      describe('#Earliest', function() {
+        it('should read the first inserted value and return data', function() {
+          return tsc.Earliest(dataSourceID)
+              .then((res)=>{
+                assert.deepEqual(res.data,{"test":"data"});
+            });
+        });
+      });
+
       describe('#Since', function() {
         it('should read values Since ts and return an array', function() {
           return tsc.Since(dataSourceID,someTimeInTheFuture)
               .then((res)=>{
+                //TEST fails as write at is used and data is written out of order!!
                 assert.equal(res[0].timestamp,someTimeInTheFuture+ 300);
                 assert.deepEqual(res[0].data,{"test":"dataAT3"});
             });
@@ -210,4 +232,5 @@ describe('TS Client', function() {
                 });
         });
       });
+
   });
