@@ -207,7 +207,7 @@ describe('TS Client', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return tsc.Observe(dataSourceID,999)
+            return tsc.Observe(dataSourceID)
               .then((emitter)=>{
 
                     receivedData = [];
