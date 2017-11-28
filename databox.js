@@ -16,3 +16,4 @@ exports.waitForStoreStatus      = require('./lib/utils.js').waitForStoreStatus;
 exports.getHttpsCredentials     = require('./lib/utils.js').getHttpsCredentials;
 exports.NewDataSourceMetadata   = coreStore.NewDataSourceMetadata;
 exports.DataSourceMetadataToHypercat = coreStore.DataSourceMetadataToHypercat;
+exports.HypercatToSourceDataMetadata = coreStore.HypercatToSourceDataMetadata;

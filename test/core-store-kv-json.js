@@ -30,28 +30,28 @@ describe('KV Client JSON', function() {
         });
       });
 
-      let dsm = databox.NewDataSourceMetadata();
-      dsm.Description =    "Test DS";
-      dsm.ContentType =    "application/json";
-      dsm.Vendor =         "Test";
-      dsm.DataSourceType = "testTsJson";
-      dsm.DataSourceID =   "test";
-      dsm.StoreType =      "kv";
-      dsm.IsActuator =     false;
-      dsm.Unit =           "none";
-      dsm.Location =       "unknown";
+    let dsm = databox.NewDataSourceMetadata();
+    dsm.Description =    "Test DS";
+    dsm.ContentType =    "application/json";
+    dsm.Vendor =         "Test";
+    dsm.DataSourceType = "testTsJson";
+    dsm.DataSourceID =   "test";
+    dsm.StoreType =      "kv";
+    dsm.IsActuator =     false;
+    dsm.Unit =           "none";
+    dsm.Location =       "unknown";
 
-      describe('#RegisterDatasource', function() {
+    describe('#RegisterDatasource', function() {
         it('should Register Datasource in the catalogue', function() {
-          return kvc.RegisterDatasource(dsm)
-              .then((res)=>{
+            return kvc.RegisterDatasource(dsm)
+                .then((res)=>{
                 assert.equal(res,"created");
             });
         });
     });
 
     describe('#GetDatasourceCataloge', function() {
-        it('should Register Datasource in the catalogue', function() {
+        it('should GET Datasource in the catalogue', function() {
             let dsmObj = {};
             return databox.DataSourceMetadataToHypercat(serverEndPoint+'/kv/',dsm)
             .then((dsmRes)=>{

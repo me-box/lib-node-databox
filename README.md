@@ -29,9 +29,9 @@ Examples of usage are provided in the ./samples directory.
 
 ## NewDataSourceMetadata ()
 
-**Returns** An empty object Description
+**Returns** An empty DataSourceMetadata object
 
-Description are used to describe your data source when creating a new one. They look like this:
+DataSourceMetadata objects are used to describe your data source when creating a new one. They look like this:
 
 ```JS
     {
@@ -58,6 +58,14 @@ Description are used to describe your data source when creating a new one. They 
 | _DataSourceMetadata_ | `Object` | An object of the form returned by NewDataSourceMetadata |
 
 **Returns** An object representing the hypercat item represented by DataSourceMetadata.
+
+## HypercatToSourceDataMetadata (hyperCatString)
+
+ Name | Type | Description |
+| ---- | ---- | ----------- |
+| _hyperCatString_ | `String` | An string representation of an the hypercat Item representing a data source |
+
+**Returns** A promise that resolves to an object of the form { "DataSourceMetadata": <DataSourceMetadata>, "DataSourceURL":store_url}
 
 
 # core-store
