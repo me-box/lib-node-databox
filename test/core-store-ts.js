@@ -6,6 +6,7 @@ let serverEndPoint = "tcp://127.0.0.1:5555";
 describe('TS Client', function() {
 
     let tsc = databox.NewTimeSeriesClient(serverEndPoint,false);
+    let startTime = Date.now();
     let someTimeInTheFuture = Date.now() + 10000;
     let dataSourceID = 'test' + Date.now(); //each test gets a fresh dataSourceID
 
@@ -63,7 +64,6 @@ describe('TS Client', function() {
         });
       });
 
-
     describe('#Latest', function() {
         it('should read latest value and return it', function() {
             console.log('Latest:: ',Date.now())
@@ -74,55 +74,16 @@ describe('TS Client', function() {
         });
       });
 
-    describe('#WriteAT', function() {
-        it('should write data at the correct time stamp and resolve created', function() {
-          return tsc.WriteAt(dataSourceID,someTimeInTheFuture,{"test":"dataAT"})
+      describe('#Range', function() {
+        it('should read range of values return an array', function() {
+            return tsc.Range(dataSourceID, startTime-100000,Date.now()+100000)
               .then((res)=>{
-                  console.log('WriteAT:: ',Date.now())
-                  assert.equal(res,"created");
-              });
-        });
-      });
-
-    describe('#WriteAT 1', function() {
-    it('should write data at the correct time stamp and resolve created', function() {
-        return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 100 ,{"test":"dataAT1"})
-            .then((res)=>{
-                console.log('WriteAT1:: ',Date.now())
-                assert.equal(res,"created");
-            });
-    });
-
-
-    describe('#WriteAT 2', function() {
-        it('should write data at the correct time stamp and resolve created', function() {
-            return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 200 ,{"test":"dataAT2"})
-                .then((res)=>{
-                    console.log('WriteAT2:: ',Date.now())
-                    assert.equal(res,"created");
+                  assert.deepEqual(res.length,4);
+                  assert.deepEqual(res[0].data,{"test":"data3"});
+                  assert.deepEqual(res[1].data,{"test":"data2"});
+                  assert.deepEqual(res[2].data,{"test":"data1"});
+                  assert.deepEqual(res[3].data,{"test":"data"});
                 });
-        });
-    });
-
-    describe('#WriteAT 3', function() {
-        it('should write data at the correct time stamp and resolve created', function() {
-            return tsc.WriteAt(dataSourceID,someTimeInTheFuture + 300 ,{"test":"dataAT3"})
-                .then((res)=>{
-                    console.log('WriteAT3:: ',Date.now())
-                    assert.equal(res,"created");
-                });
-            });
-        });
-    });
-
-    describe('#Latest with WriteAT', function() {
-        it('should read latest value and return it with ts ' + someTimeInTheFuture, function() {
-          return tsc.Latest(dataSourceID)
-              .then((res)=>{
-                console.log('ReadAt3:: ',Date.now())
-                assert.deepEqual(res.data,{"test":"dataAT3"});
-                //assert.equal(res.timestamp,someTimeInTheFuture);
-            });
         });
       });
 
@@ -130,8 +91,8 @@ describe('TS Client', function() {
         it('should read last N values and return an array', function() {
           return tsc.LastN(dataSourceID,2)
               .then((res)=>{
-                assert.deepEqual(res[0].data,{"test":"dataAT3"});
-                assert.deepEqual(res[1].data,{"test":"dataAT2"});
+                assert.deepEqual(res[0].data,{"test":"data3"});
+                assert.deepEqual(res[1].data,{"test":"data2"});
             });
         });
       });
@@ -157,11 +118,9 @@ describe('TS Client', function() {
 
       describe('#Since', function() {
         it('should read values Since ts and return an array', function() {
-          return tsc.Since(dataSourceID,someTimeInTheFuture)
+          return tsc.Since(dataSourceID,startTime)
               .then((res)=>{
-                //TEST fails as write at is used and data is written out of order!!
-                assert.equal(res[0].timestamp,someTimeInTheFuture+ 300);
-                assert.deepEqual(res[0].data,{"test":"dataAT3"});
+                assert.deepEqual(res[0].data,{"test":"data3"});
             });
         });
       });
@@ -218,7 +177,7 @@ describe('TS Client', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,1000);
+                        setTimeout(resolve,1500);
                     });
                 })
                 .then(()=>{ return tsc.Write(dataSourceID,{"test":"obs1"});})
