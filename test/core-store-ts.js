@@ -75,8 +75,8 @@ describe('TS Client', function() {
       });
 
       describe('#Range', function() {
-        it('should read latest value and return it', function() {
-            return tsc.Range(dataSourceID, startTime-10000,Date.now()+10000)
+        it('should read range of values return an array', function() {
+            return tsc.Range(dataSourceID, startTime-100000,Date.now()+100000)
               .then((res)=>{
                   assert.deepEqual(res.length,4);
                   assert.deepEqual(res[0].data,{"test":"data3"});
