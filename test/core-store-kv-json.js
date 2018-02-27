@@ -14,7 +14,7 @@ describe('KV Client JSON', function() {
 
     describe('#Write', function() {
       it('should write and resole created', function() {
-        return kvc.Write(dataSourceID,{"test":"data"},'JSON')
+        return kvc.Write(dataSourceID,"key1",{"test":"data"},'JSON')
             .then((res)=>{
                 assert.equal(res,"created");
             });
@@ -23,7 +23,7 @@ describe('KV Client JSON', function() {
 
     describe('#Read', function() {
         it('should read latest value and return it', function() {
-            return kvc.Read(dataSourceID,'JSON')
+            return kvc.Read(dataSourceID,"key1",'JSON')
               .then((res)=>{
                   assert.deepEqual(res,{"test":"data"});
               });
@@ -68,7 +68,7 @@ describe('KV Client JSON', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,999,'JSON')
+            return kvc.Observe(dataSourceID,"key2",999,'JSON')
               .then((emitter)=>{
 
                     receivedData = [];
@@ -82,14 +82,14 @@ describe('KV Client JSON', function() {
                         setTimeout(resolve,1000);
                     });
                 })
-                .then(()=>{ return kvc.Write(dataSourceID,{"test":"obs1"},'JSON');})
-                .then(()=>{ return kvc.Write(dataSourceID,{"test":"obs2"},'JSON');})
-                .then(()=>{ return kvc.Write(dataSourceID,{"test":"obs3"},'JSON');})
+                .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs1"},'JSON');})
+                .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs2"},'JSON');})
+                .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs3"},'JSON');})
                 .then(()=>{
                     assert.deepEqual(receivedData[0],'{"test":"obs1"}');
                     assert.deepEqual(receivedData[1],'{"test":"obs2"}');
                     assert.deepEqual(receivedData[2],'{"test":"obs3"}');
-                    kvc.StopObserving(dataSourceID);
+                    kvc.StopObserving(dataSourceID, "key2");
                 });
         });
       });

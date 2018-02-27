@@ -9,7 +9,7 @@ describe('TS Client', function() {
     let someTimeInTheFuture = Date.now() + 10000;
     let dataSourceID = 'test' + Date.now(); //each test gets a fresh dataSourceID
 
-    let numRecordsToWrite = 100;
+    let numRecordsToWrite = 500;
 
     after(function () {
         tsc.zestClient.ZMQsoc.close();
@@ -20,10 +20,10 @@ describe('TS Client', function() {
         let proms = [];
 
         let write = (j,resolve) => {
-                tsc.Write(dataSourceID,{"test":"data"+j})
+                tsc.Write(dataSourceID,{"value":j})
                 .then((resp)=>{
                     assert.equal('created',resp);
-                    console.log(resp + " " + j + " " + Date.now());
+                    //console.log(resp + " " + j + " " + Date.now());
                     j++;
                     if (j <= numRecordsToWrite) {
                         write(j,resolve);
@@ -49,7 +49,7 @@ describe('TS Client', function() {
             return tsc.Latest(dataSourceID)
               .then((res)=>{
                   console.log("Checking latest at " + Date.now());
-                  assert.deepEqual(res.data,{"test":"data"+numRecordsToWrite});
+                  assert.deepEqual(res[0].data,{"value":numRecordsToWrite});
               });
         });
       })

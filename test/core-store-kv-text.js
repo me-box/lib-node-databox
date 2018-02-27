@@ -14,7 +14,7 @@ describe('KV Client TEXT', function() {
 
     describe('#Write', function() {
       it('should write and resole created', function() {
-        return kvc.Write(dataSourceID,"data12345",'TEXT')
+        return kvc.Write(dataSourceID,"textKey","data12345",'TEXT')
             .then((res)=>{
                 assert.equal(res,"created");
             });
@@ -23,7 +23,7 @@ describe('KV Client TEXT', function() {
 
     describe('#Read', function() {
         it('should read latest value and return it', function() {
-            return kvc.Read(dataSourceID,'TEXT')
+            return kvc.Read(dataSourceID,"textKey",'TEXT')
               .then((res)=>{
                   assert.equal(res,"data12345");
               });
@@ -33,7 +33,7 @@ describe('KV Client TEXT', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,999,'TEXT')
+            return kvc.Observe(dataSourceID,"textKey",999,'TEXT')
               .then((emitter)=>{
 
                     receivedData = [];
@@ -47,14 +47,14 @@ describe('KV Client TEXT', function() {
                         setTimeout(resolve,1000);
                     });
                 })
-                .then(()=>{ return kvc.Write(dataSourceID,'data12345','TEXT'); })
-                .then(()=>{ return kvc.Write(dataSourceID,'data123456','TEXT'); })
-                .then(()=>{ return kvc.Write(dataSourceID,'data1234567','TEXT'); })
+                .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data12345','TEXT'); })
+                .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data123456','TEXT'); })
+                .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data1234567','TEXT'); })
                 .then(()=>{
                     assert.equal(receivedData[0],'data12345');
                     assert.equal(receivedData[1],'data123456');
                     assert.equal(receivedData[2],'data1234567');
-                    kvc.StopObserving(dataSourceID);
+                    kvc.StopObserving(dataSourceID,"textKey");
                 });
         });
       });

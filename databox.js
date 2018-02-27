@@ -5,7 +5,7 @@ exports.export             = require('./lib/export.js');
 let coreStore = require('./lib/core-store.js');
 exports.NewKeyValueClient            = coreStore.NewKeyValueClient;
 exports.NewTimeSeriesClient          = coreStore.NewTimeSeriesClient;
-
+exports.NewTimeSeriesBlobClient      = coreStore.NewTimeSeriesBlobClient;
 //Helper functions
 exports.waitForStoreStatus      = require('./lib/utils.js').waitForStoreStatus;
 exports.getHttpsCredentials     = require('./lib/utils.js').getHttpsCredentials;
