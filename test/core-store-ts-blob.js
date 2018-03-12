@@ -162,7 +162,7 @@ describe('TS Client', function() {
     describe('#GetDatasourceCataloge', function() {
         it('should Register Datasource in the catalogue', function() {
             let dsmObj = {};
-            return databox.DataSourceMetadataToHypercat(serverEndPoint+'/ts/',dsm)
+            return databox.DataSourceMetadataToHypercat(serverEndPoint+'/ts/blob/',dsm)
                 .then((dsmRes)=>{
                     dsmObj = dsmRes;
                     return tsc.GetDatasourceCatalogue();
