@@ -95,6 +95,15 @@ describe('TS Client', function() {
         });
       });
 
+      describe('#Length', function() {
+        it('should return the number of records stored', function() {
+          return tsc.Length(dataSourceID)
+              .then((res)=>{
+                assert.deepEqual(res,{"length":3});
+            });
+        });
+      });
+
       //
       // TODO THIS FAILS returns []
       //
