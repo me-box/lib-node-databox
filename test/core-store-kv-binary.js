@@ -33,7 +33,7 @@ describe('KV Client BINARY', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,"binKey",999,'BINARY')
+            return kvc.ObserveKey(dataSourceID,"binKey",0,'BINARY')
               .then((emitter)=>{
 
                     receivedData = [];
@@ -51,9 +51,9 @@ describe('KV Client BINARY', function() {
                 .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data123456','BINARY'); })
                 .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data1234567','BINARY'); })
                 .then(()=>{
-                    assert.equal(receivedData[0],'data12345');
-                    assert.equal(receivedData[1],'data123456');
-                    assert.equal(receivedData[2],'data1234567');
+                    assert.equal(receivedData[0].data,'data12345');
+                    assert.equal(receivedData[1].data,'data123456');
+                    assert.equal(receivedData[2].data,'data1234567');
                     kvc.StopObserving(dataSourceID,"binKey");
                 });
         });

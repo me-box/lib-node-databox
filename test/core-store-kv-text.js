@@ -33,7 +33,7 @@ describe('KV Client TEXT', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,"textKey",999,'TEXT')
+            return kvc.ObserveKey(dataSourceID, "textKey", 0, 'TEXT')
               .then((emitter)=>{
 
                     receivedData = [];
@@ -51,9 +51,9 @@ describe('KV Client TEXT', function() {
                 .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data123456','TEXT'); })
                 .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data1234567','TEXT'); })
                 .then(()=>{
-                    assert.equal(receivedData[0],'data12345');
-                    assert.equal(receivedData[1],'data123456');
-                    assert.equal(receivedData[2],'data1234567');
+                    assert.equal(receivedData[0].data,'data12345');
+                    assert.equal(receivedData[1].data,'data123456');
+                    assert.equal(receivedData[2].data,'data1234567');
                     kvc.StopObserving(dataSourceID,"textKey");
                 });
         });

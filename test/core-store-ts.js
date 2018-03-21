@@ -315,7 +315,7 @@ describe('TS Client', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return tsc.Observe(dataSourceID)
+            return tsc.Observe(dataSourceID,0,"JSON")
               .then((emitter)=>{
 
                     receivedData = [];
@@ -333,9 +333,9 @@ describe('TS Client', function() {
                 .then(()=>{ return tsc.Write(dataSourceID,{"value":2});})
                 .then(()=>{ return tsc.Write(dataSourceID,{"value":3});})
                 .then(()=>{
-                    assert.deepEqual(receivedData[0],'{"value":1}');
-                    assert.deepEqual(receivedData[1],'{"value":2}');
-                    assert.deepEqual(receivedData[2],'{"value":3}');
+                    assert.deepEqual(receivedData[0].data,'{"value":1}');
+                    assert.deepEqual(receivedData[1].data,'{"value":2}');
+                    assert.deepEqual(receivedData[2].data,'{"value":3}');
                     tsc.StopObserving(dataSourceID);
                 });
         });
