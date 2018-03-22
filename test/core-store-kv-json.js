@@ -15,6 +15,9 @@ describe('KV Client JSON', function() {
     describe('#Write', function() {
       it('should write and resole created', function() {
         return kvc.Write(dataSourceID,"key1",{"test":"data"},'JSON')
+            .then(()=>{
+                return kvc.Write(dataSourceID,"key2",{"test":"data"},'JSON')
+            })
             .then((res)=>{
                 assert.equal(res,"created");
             });
@@ -26,6 +29,16 @@ describe('KV Client JSON', function() {
             return kvc.Read(dataSourceID,"key1",'JSON')
               .then((res)=>{
                   assert.deepEqual(res,{"test":"data"});
+              });
+        });
+      });
+
+      describe('#ListKeys', function() {
+        it('should read a list of keys return it as a array', function() {
+            return kvc.ListKeys(dataSourceID)
+              .then((res)=>{
+                console.log(res);
+                  assert.deepEqual(res,["key2", "key1"]);
               });
         });
       });

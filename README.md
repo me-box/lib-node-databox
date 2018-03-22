@@ -215,6 +215,16 @@ Writes data to the store for the given dataSourceID data. Writes to the same key
 
 **Returns** a `Promise` that resolves with "created" on success or rejects with error message on error.
 
+### ListKeys (dataSourceID)
+
+Lists the stored keys for this dataSourceID
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| _dataSourceID_ | `String` | dataSourceID to read form |
+
+**Returns** as `Promise` that resolves with the data on success or rejects with error message on error. The type of the returned data is an `Array` of `Strings`.
+
 ### Read (dataSourceID, contentFormat)
 
 Reads data from the store for the given dataSourceID. data is timestamped with milliseconds since the unix epoch on insert.
@@ -287,6 +297,7 @@ This function registers your data sources with your store. Registering your data
 
 **Returns** a `Promise` that resolves with "created" on success or rejects with error message on error.
 
+## Exporting Data to an external service
 
 ### export.longpoll(destination, payload) ###
 
