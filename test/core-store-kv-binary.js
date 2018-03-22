@@ -14,7 +14,7 @@ describe('KV Client BINARY', function() {
 
     describe('#Write', function() {
       it('should write and resole created', function() {
-        return kvc.Write(dataSourceID,"data12345",'BINARY')
+        return kvc.Write(dataSourceID,"binKey","data12345",'BINARY')
             .then((res)=>{
                 assert.equal(res,"created");
             });
@@ -23,7 +23,7 @@ describe('KV Client BINARY', function() {
 
     describe('#Read', function() {
         it('should read latest value and return it', function() {
-            return kvc.Read(dataSourceID,'BINARY')
+            return kvc.Read(dataSourceID,"binKey",'BINARY')
               .then((res)=>{
                   assert.equal(res,"data12345");
               });
@@ -33,7 +33,7 @@ describe('KV Client BINARY', function() {
     describe('#Observe', function() {
         it('should return an event emitter that receives data when new values are written', function() {
 
-            return kvc.Observe(dataSourceID,999,'BINARY')
+            return kvc.ObserveKey(dataSourceID,"binKey",0,'BINARY')
               .then((emitter)=>{
 
                     receivedData = [];
@@ -47,14 +47,14 @@ describe('KV Client BINARY', function() {
                         setTimeout(resolve,1000);
                     });
                 })
-                .then(()=>{ return kvc.Write(dataSourceID,'data12345','BINARY'); })
-                .then(()=>{ return kvc.Write(dataSourceID,'data123456','BINARY'); })
-                .then(()=>{ return kvc.Write(dataSourceID,'data1234567','BINARY'); })
+                .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data12345','BINARY'); })
+                .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data123456','BINARY'); })
+                .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data1234567','BINARY'); })
                 .then(()=>{
-                    assert.equal(receivedData[0],'data12345');
-                    assert.equal(receivedData[1],'data123456');
-                    assert.equal(receivedData[2],'data1234567');
-                    kvc.StopObserving(dataSourceID);
+                    assert.equal(receivedData[0].data,'data12345');
+                    assert.equal(receivedData[1].data,'data123456');
+                    assert.equal(receivedData[2].data,'data1234567');
+                    kvc.StopObserving(dataSourceID,"binKey");
                 });
         });
       });
