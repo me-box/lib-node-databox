@@ -92,7 +92,7 @@ describe('KV Client JSON', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,1000);
+                        setTimeout(resolve,1500);
                     });
                 })
                 .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs1"},'JSON');})

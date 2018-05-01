@@ -298,7 +298,7 @@ describe('TS Client', function() {
     });
 
     describe('#GetDatasourceCataloge', function() {
-        it('should Register Datasource in the catalogue', function() {
+      it('should Register Datasource in the catalogue', function() {
             let dsmObj = {};
             return databox.DataSourceMetadataToHypercat(serverEndPoint+'/ts/',dsm)
                 .then((dsmRes)=>{
@@ -326,7 +326,7 @@ describe('TS Client', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,1500);
+                        setTimeout(resolve,2000);
                     });
                 })
                 .then(()=>{ return tsc.Write(dataSourceID,{"value":1});})
