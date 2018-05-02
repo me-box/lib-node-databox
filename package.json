@@ -4,8 +4,9 @@
   "description": "A Nodejs library for interfacing with Databox APIs",
   "main": "databox.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --timeout 10000",
-    "report-coverage": "nyc report --reporter=text-lcov && codecov"
+    "test": "nyc ./node_modules/mocha/bin/mocha --timeout 10000",
+    "coverage": "nyc report",
+    "report-coverage": "nyc report; codecov"
   },
   "repository": {
     "type": "git",
