@@ -23,7 +23,7 @@ describe('TS Client', function() {
                 tsc.Write(dataSourceID,{"value":j})
                 .then((resp)=>{
                     assert.equal('created',resp);
-                    console.log(resp + " " + j + " " + Date.now());
+                    //console.log(resp + " " + j + " " + Date.now());
                     j++;
                     if (j <= numRecordsToWrite) {
                         write(j,resolve);
