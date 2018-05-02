@@ -72,9 +72,17 @@ describe('KV Client JSON', function() {
                     return kvc.GetDatasourceCatalogue();
                 })
                 .then((res)=>{
-                  let cat = JSON.parse(res);
-                  assert.deepEqual(dsmObj,cat['items'][0]);
-                });
+                    let cat = JSON.parse(res);
+                    let found = false
+                    for(i of cat.items) {
+                        if (i.href == dsmObj.href) {
+                          assert.deepEqual(i,dsmObj);
+                          found = true
+                          break
+                        }
+                    }
+                    assert.equal(found,true);
+                  });
         });
     });
 
@@ -92,12 +100,19 @@ describe('KV Client JSON', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,1500);
+                        setTimeout(resolve,1000);
                     });
                 })
                 .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs1"},'JSON');})
                 .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs2"},'JSON');})
                 .then(()=>{ return kvc.Write(dataSourceID,"key2",{"test":"obs3"},'JSON');})
+                .then(()=>{
+                    //wait a second for the observe request to be processed
+                    //or we dont get all the data.
+                    return new Promise((resolve,reject)=>{
+                      setTimeout(resolve,1500);
+                    });
+                })
                 .then(()=>{
                     assert.deepEqual(receivedData[0].data,'{"test":"obs1"}');
                     assert.deepEqual(receivedData[1].data,'{"test":"obs2"}');
@@ -127,6 +142,13 @@ describe('KV Client JSON', function() {
                 .then(()=>{ return kvc.Write(dataSourceID,"ObserveKey1",{"test":"obs1"},'JSON');})
                 .then(()=>{ return kvc.Write(dataSourceID,"ObserveKey2",{"test":"obs2"},'JSON');})
                 .then(()=>{ return kvc.Write(dataSourceID,"ObserveKey3",{"test":"obs3"},'JSON');})
+                .then(()=>{
+                    //wait a second for the observe request to be processed
+                    //or we dont get all the data.
+                    return new Promise((resolve,reject)=>{
+                      setTimeout(resolve,1500);
+                    });
+                })
                 .then(()=>{
                     assert.deepEqual(receivedData[0].data,'{"test":"obs1"}');
                     assert.deepEqual(receivedData[1].data,'{"test":"obs2"}');

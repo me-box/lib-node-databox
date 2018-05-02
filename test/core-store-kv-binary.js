@@ -44,12 +44,19 @@ describe('KV Client BINARY', function() {
                     //wait a second for the observe request to be processed
                     //or we dont get all the data.
                     return new Promise((resolve,reject)=>{
-                        setTimeout(resolve,2000);
+                        setTimeout(resolve,1000);
                     });
                 })
                 .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data12345','BINARY'); })
                 .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data123456','BINARY'); })
                 .then(()=>{ return kvc.Write(dataSourceID,"binKey",'data1234567','BINARY'); })
+                .then(()=>{
+                    //wait a second for the observe request to be processed
+                    //or we dont get all the data.
+                    return new Promise((resolve,reject)=>{
+                      setTimeout(resolve,1500);
+                    });
+                })
                 .then(()=>{
                     assert.equal(receivedData[0].data,'data12345');
                     assert.equal(receivedData[1].data,'data123456');
