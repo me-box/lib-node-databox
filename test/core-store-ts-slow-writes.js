@@ -9,7 +9,7 @@ describe('TS Client', function() {
     let someTimeInTheFuture = Date.now() + 10000;
     let dataSourceID = 'test' + Date.now(); //each test gets a fresh dataSourceID
 
-    let numRecordsToWrite = 500;
+    let numRecordsToWrite = 100;
 
     after(function () {
         tsc.zestClient.ZMQsoc.close();
