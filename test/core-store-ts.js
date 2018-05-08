@@ -307,7 +307,15 @@ describe('TS Client', function() {
                 })
                 .then((res)=>{
                   let cat = JSON.parse(res);
-                  assert.deepEqual(dsmObj,cat['items'][0]);
+                  let found = false
+                  for(i of cat.items) {
+                      if (i.href == dsmObj.href) {
+                        assert.deepEqual(i,dsmObj);
+                        found = true
+                        break
+                      }
+                  }
+                  assert.equal(found,true);
                 });
         });
     });
@@ -332,6 +340,13 @@ describe('TS Client', function() {
                 .then(()=>{ return tsc.Write(dataSourceID,{"value":1});})
                 .then(()=>{ return tsc.Write(dataSourceID,{"value":2});})
                 .then(()=>{ return tsc.Write(dataSourceID,{"value":3});})
+                .then(()=>{
+                      //wait a second for the observe request to be processed
+                      //or we dont get all the data.
+                      return new Promise((resolve,reject)=>{
+                        setTimeout(resolve,1500);
+                      });
+                })
                 .then(()=>{
                     assert.deepEqual(receivedData[0].data,'{"value":1}');
                     assert.deepEqual(receivedData[1].data,'{"value":2}');

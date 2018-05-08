@@ -51,6 +51,13 @@ describe('KV Client TEXT', function() {
                 .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data123456','TEXT'); })
                 .then(()=>{ return kvc.Write(dataSourceID,"textKey",'data1234567','TEXT'); })
                 .then(()=>{
+                    //wait a second for the observe request to be processed
+                    //or we dont get all the data.
+                    return new Promise((resolve,reject)=>{
+                      setTimeout(resolve,1500);
+                    });
+                })
+                .then(()=>{
                     assert.equal(receivedData[0].data,'data12345');
                     assert.equal(receivedData[1].data,'data123456');
                     assert.equal(receivedData[2].data,'data1234567');

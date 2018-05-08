@@ -1,0 +1,17 @@
+sudo: required
+language: node_js
+node_js:
+  - "node"
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -qqy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
+  - docker run -p 5555:5555 -p 5556:5556 -d --name zest --rm jptmoore/zest:v0.0.6 /app/zest/server.exe --secret-key-file example-server-key
+  - npm install
+script:
+  - npm test
+after_success:
+  - npm run report-coverage
+services:
+  - docker
