@@ -6,8 +6,12 @@ before_install:
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
   - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   - sudo apt-get update
-  - sudo apt-get -qqy -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" install docker-ce
-  - docker run -p 5555:5555 -p 5556:5556 -d --name zest --rm jptmoore/zest:v0.0.6 /app/zest/server.exe --secret-key-file example-server-key
+  - sudo apt-get -y install docker-ce libtool pkg-config build-essential autoconf automake uuid-dev wget
+  - ./setupTest.sh
+  - wget https://github.com/zeromq/libzmq/releases/download/v4.2.3/zeromq-4.2.3.tar.gz
+  - tar xvzf zeromq-4.2.3.tar.gz
+  - cd zeromq-4.2.3; ./configure; sudo make install; sudo ldconfig; cd ..; sudo rm -rf zeromq-4.2.3
+  - npm install zeromq --zmq-external
   - npm install
   - ./setupTest.sh
 script:
