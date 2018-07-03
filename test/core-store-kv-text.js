@@ -13,7 +13,7 @@ describe('KV Client TEXT', function() {
     });
 
     describe('#Write', function() {
-      it('should write and resole created', function() {
+      it('should write and resolve created', function() {
         return kvc.Write(dataSourceID,"textKey","data12345",'TEXT')
             .then((res)=>{
                 assert.equal(res,"created");

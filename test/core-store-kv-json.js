@@ -13,12 +13,13 @@ describe('KV Client JSON', function() {
     });
 
     describe('#Write', function() {
-      it('should write and resole created', function() {
+      it('should write and resolve created', function() {
         return kvc.Write(dataSourceID,"key1",{"test":"data"},'JSON')
             .then(()=>{
                 return kvc.Write(dataSourceID,"key2",{"test":"data"},'JSON')
             })
             .then((res)=>{
+                console.log(res);
                 assert.equal(res,"created");
             });
       });

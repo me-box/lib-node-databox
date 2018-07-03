@@ -13,7 +13,7 @@ describe('KV Client BINARY', function() {
     });
 
     describe('#Write', function() {
-      it('should write and resole created', function() {
+      it('should write and resolve created', function() {
         return kvc.Write(dataSourceID,"binKey","data12345",'BINARY')
             .then((res)=>{
                 assert.equal(res,"created");
