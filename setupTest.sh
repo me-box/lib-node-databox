@@ -6,7 +6,7 @@ ZEST_IMAGE_VERSION="jptmoore/zest:v0.0.8"
 ARBITER_IMAGE_VERSION="jptmoore/arbiter:latest"
 
 echo "start the arbiter"
-docker run -p 4444:4444 -p 4445:4445 -d --name arbiter --rm ${ARBITER_IMAGE_VERSION} /app/zest/server.exe --request-endpoint tcp://0.0.0.0:4444 --secret-key-file example-server-key --enable-logging
+docker run -p 4444:4444 -p 4445:4445 -d --name arbiter --rm ${ARBITER_IMAGE_VERSION} /app/zest/server.exe --request-endpoint tcp://0.0.0.0:4444 --secret-key-file example-server-key --token-key-file example-token-key --enable-logging
 
 echo "register a store"
 docker run --network host -it ${ZEST_IMAGE_VERSION} /app/zest/client.exe --server-key 'vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<' --request-endpoint tcp://0.0.0.0:4444 --path '/cm/upsert-container-info' --mode post --payload "{\"name\": \"127.0.0.1\", \"type\": \"store\", \"key\": \"storeSecret\"}" --token secret
