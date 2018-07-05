@@ -1,6 +1,6 @@
 {
   "name": "node-databox",
-  "version": "0.7.8",
+  "version": "0.8.0",
   "description": "A Nodejs library for interfacing with Databox APIs",
   "main": "databox.js",
   "scripts": {
