@@ -306,6 +306,7 @@ describe('TS Client', function() {
                     return tsc.GetDatasourceCatalogue();
                 })
                 .then((res)=>{
+                  console.log(res)
                   let cat = JSON.parse(res);
                   let found = false
                   for(i of cat.items) {

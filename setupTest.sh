@@ -2,7 +2,7 @@
 docker kill zest
 docker kill arbiter
 
-ZEST_IMAGE_VERSION="jptmoore/zest:v0.0.8"
+ZEST_IMAGE_VERSION="toshbrown/zestdb-amd64"
 ARBITER_IMAGE_VERSION="jptmoore/arbiter:latest"
 
 echo "start the arbiter"
