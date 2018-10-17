@@ -2,8 +2,8 @@
 docker kill zest
 docker kill arbiter
 
-ZEST_IMAGE_VERSION="toshbrown/zestdb-amd64"
-ARBITER_IMAGE_VERSION="jptmoore/arbiter:latest"
+ZEST_IMAGE_VERSION="databoxsystems/zestdb-amd64:latest"
+ARBITER_IMAGE_VERSION="jptmoore/arbiter:v0.0.2"
 
 echo "start the arbiter"
 docker run -p 4444:4444 -p 4445:4445 -d --name arbiter --rm ${ARBITER_IMAGE_VERSION} /app/zest/server.exe --request-endpoint tcp://0.0.0.0:4444 --secret-key-file example-server-key --token-key-file example-token-key --enable-logging
