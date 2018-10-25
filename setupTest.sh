@@ -3,7 +3,7 @@ docker kill zest
 docker kill arbiter
 
 ZEST_IMAGE_VERSION="databoxsystems/zestdb-amd64:latest"
-ARBITER_IMAGE_VERSION="jptmoore/arbiter:v0.0.3"
+ARBITER_IMAGE_VERSION="jptmoore/arbiter:v0.0.4"
 
 echo "start the arbiter"
 docker run -p 4444:4444 -p 4445:4445 -d --name arbiter --rm ${ARBITER_IMAGE_VERSION} /app/zest/server.exe --request-endpoint tcp://0.0.0.0:4444 --secret-key-file example-server-key --token-key-file example-token-key --enable-logging
@@ -26,6 +26,7 @@ echo "registering app called " $HOST_NAME
 docker run --network host -it ${ZEST_IMAGE_VERSION} /app/zest/client.exe --server-key 'vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<' --request-endpoint tcp://0.0.0.0:4444 --path '/cm/upsert-container-info' --mode post --payload "{\"name\": \"${HOST_NAME}\", \"type\": \"app\", \"key\": \"secret\"}" --token secret
 
 echo "Granting permissions for app called " $HOST_NAME
+docker run --network host -it ${ZEST_IMAGE_VERSION} /app/zest/client.exe --server-key 'vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<' --path '/cm/grant-container-permissions' --mode post --payload "{\"name\": \"${HOST_NAME}\", \"caveats\": [{\"destination\":\"https://export.amar.io/\"}], \"route\": {\"method\": \"POST\", \"path\": \"/export/lp\", \"target\": \"127.0.0.1\"}}" --token secret --request-endpoint 'tcp://127.0.0.1:4444' --token secret
 docker run --network host -it ${ZEST_IMAGE_VERSION} /app/zest/client.exe --server-key 'vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<' --path '/cm/grant-container-permissions' --mode post --payload "{\"name\": \"${HOST_NAME}\", \"caveats\": [], \"route\": {\"method\": \"POST\", \"path\": \"/*\", \"target\": \"127.0.0.1\"}}" --token secret --request-endpoint 'tcp://127.0.0.1:4444' --token secret
 docker run --network host -it ${ZEST_IMAGE_VERSION} /app/zest/client.exe --server-key 'vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<' --path '/cm/grant-container-permissions' --mode post --payload "{\"name\": \"${HOST_NAME}\", \"caveats\": [], \"route\": {\"method\": \"GET\", \"path\": \"/*\", \"target\": \"127.0.0.1\"}}" --token secret --request-endpoint 'tcp://127.0.0.1:4444' --token secret
 docker run --network host -it ${ZEST_IMAGE_VERSION} /app/zest/client.exe --server-key 'vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<' --path '/cm/grant-container-permissions' --mode post --payload "{\"name\": \"${HOST_NAME}\", \"caveats\": [], \"route\": {\"method\": \"DELETE\", \"path\": \"/*\", \"target\": \"127.0.0.1\"}}" --token secret --request-endpoint 'tcp://127.0.0.1:4444' --token secret

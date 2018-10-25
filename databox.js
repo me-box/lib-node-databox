@@ -12,3 +12,4 @@ exports.getHttpsCredentials     = require('./lib/utils.js').getHttpsCredentials;
 exports.NewDataSourceMetadata   = coreStore.NewDataSourceMetadata;
 exports.DataSourceMetadataToHypercat = coreStore.DataSourceMetadataToHypercat;
 exports.HypercatToSourceDataMetadata = coreStore.HypercatToSourceDataMetadata;
+exports.requestToken = require('./lib/utils.js').requestToken;
