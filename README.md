@@ -19,7 +19,7 @@ Usage
 
 > :warning: While this library is at [1.0.0](http://semver.org/spec/v2.0.0.html) the API may change.
 
-Examples of usage are provided in the ./samples directory.
+Examples of usage are provided in the https://github.com/me-box/databox-quickstart repository.
 
 
 # Helper Functions
