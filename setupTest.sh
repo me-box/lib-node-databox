@@ -1,10 +1,22 @@
 
-docker kill zest
+docker kill zestNoArb
 docker kill arbiter
+docker kill zest
+
 
 ZEST_IMAGE_VERSION="databoxsystems/zestdb-amd64:latest"
 ARBITER_IMAGE_VERSION="jptmoore/arbiter:v0.0.4"
 
+#
+#start a store which is not paired for resting the zest.js
+#
+echo "start the store with the default key"
+docker run -p 3333:5555 -p 3334:5556 -d --name zestNoArb --rm ${ZEST_IMAGE_VERSION} /app/zest/server.exe --secret-key-file example-server-key --identity '127.0.0.1' --enable-logging
+
+
+#
+# start an arbiter and pair it with the store to test the client
+#
 echo "start the arbiter"
 docker run -p 4444:4444 -p 4445:4445 -d --name arbiter --rm ${ARBITER_IMAGE_VERSION} /app/zest/server.exe --request-endpoint tcp://0.0.0.0:4444 --secret-key-file example-server-key --token-key-file example-token-key --enable-logging
 

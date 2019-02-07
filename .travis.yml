@@ -16,7 +16,5 @@ before_install:
   - ./setupTest.sh
 script:
   - npm test
-after_success:
-  - npm run report-coverage
 services:
   - docker
