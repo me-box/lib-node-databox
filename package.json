@@ -4,7 +4,7 @@
   "description": "A NodeJs Lib for Zest REST over ZeroMQ",
   "main": "main.js",
   "scripts": {
-    "test": "./setupTest.sh && jest --coverage",
+    "test": "./setupTest.sh && jest --coverage --detectOpenHandles",
     "lint": "eslint ."
   },
   "repository": {
