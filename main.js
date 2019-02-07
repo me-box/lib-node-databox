@@ -38,20 +38,6 @@ exports.NewStoreClient = function (storeEndpoint, arbiterEndpoint, enableLogging
             return u.protocol + '//' + u.host
         },
 
-        NewDataSourceMetadata: function () {
-            return {
-                Description: ' ',
-                ContentType: ' ',
-                Vendor: ' ',
-                DataSourceType: ' ',
-                DataSourceID: ' ',
-                StoreType: ' ',
-                IsActuator: false,
-                Unit: ' ',
-                Location: ' ',
-            }
-        },
-
         //KeyValueClient used to read and write of data key value to the store
         KV: {
             Read: async function (dataSourceID, key, contentFormat = 'JSON') {
@@ -182,6 +168,21 @@ exports.NewStoreClient = function (storeEndpoint, arbiterEndpoint, enableLogging
 
     return client
 }
+
+let NewDataSourceMetadata = function () {
+    return {
+        Description: ' ',
+        ContentType: ' ',
+        Vendor: ' ',
+        DataSourceType: ' ',
+        DataSourceID: ' ',
+        StoreType: ' ',
+        IsActuator: false,
+        Unit: ' ',
+        Location: ' ',
+    }
+}
+exports.NewDataSourceMetadata = NewDataSourceMetadata
 
 let DataSourceMetadataToHypercat = function (endpoint, metadata) {
     ValidateDataSourceMetadata(metadata)

@@ -28,7 +28,7 @@ test('Client:: invalid DataSourceMetadata', async () => {
 test('Client:: valid DataSourceMetadata invalid store type', async () => {
     let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
-        let dsm = client.NewDataSourceMetadata()
+        let dsm = storeClient.NewDataSourceMetadata()
         await client.RegisterDatasource(dsm)
     } catch (error) {
         expect(error).toBe('Error:: DataSourceMetadata invalid StoreType can be kv,ts or ts/blob')
@@ -38,7 +38,7 @@ test('Client:: valid DataSourceMetadata invalid store type', async () => {
 test('Client:: valid DataSourceMetadata valid store type', async () => {
     let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
-        let dsm = client.NewDataSourceMetadata()
+        let dsm = storeClient.NewDataSourceMetadata()
         dsm.StoreType = 'ts'
         await client.RegisterDatasource(dsm)
         expect(true).toBe(true)
@@ -50,7 +50,7 @@ test('Client:: valid DataSourceMetadata valid store type', async () => {
 test('Client:: invalid storeType', async () => {
     let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
-        let dsm = client.NewDataSourceMetadata()
+        let dsm = storeClient.NewDataSourceMetadata()
         dsm.StoreType = 'fish/pie'
         await client.RegisterDatasource(dsm)
     } catch (error) {
@@ -62,7 +62,7 @@ test('Client:: invalid storeType', async () => {
 test('Client:: RegisterDatasource', async () => {
     let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
-    let dsm = client.NewDataSourceMetadata()
+    let dsm = storeClient.NewDataSourceMetadata()
     dsm.StoreType = 'ts'
     dsm.DataSourceID = DATA_SOURCE_ID
     dsm.Description = `this is ds ${DATA_SOURCE_ID}`
