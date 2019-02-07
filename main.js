@@ -3,6 +3,7 @@ const arbiterClient = require('./lib/arbiter-client.js')
 const config = require('./lib/config.js')
 const url = require('url')
 const EventEmitter = require('events')
+const fs = require('fs')
 
 // StoreClient returns a new client to read and write data to stores
 // storeEndpoint is provided in the DATABOX_ZMQ_ENDPOINT environment variable
@@ -281,11 +282,11 @@ exports.GetHttpsCredentials = function () {
     try {
         //HTTPS certs created by the container mangers for this components HTTPS server.
         credentials = {
-            key: fs.readFileSync("/run/secrets/DATABOX.pem") || '',
-            cert: fs.readFileSync("/run/secrets/DATABOX.pem") || ''
+            key: fs.readFileSync('/run/secrets/DATABOX.pem'),
+            cert: fs.readFileSync('/run/secrets/DATABOX.pem')
         };
     } catch (e) {
-        console.warn('Warning: No HTTPS certificate not provided HTTPS certificates missing.');
+        console.warn('Warning: No HTTPS certificate not provided HTTPS certificates missing. Error', e);
         credentials = {};
     }
 
