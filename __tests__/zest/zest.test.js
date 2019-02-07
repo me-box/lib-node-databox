@@ -127,7 +127,7 @@ test('Zest:: Observe', async () => {
         expect(results[i]).toContain(`this is a test ${i + 1}`)
     }
 
-    zcObs.StopObserving(`/kv/${DATA_SOURCE_ID}/obsTest`)
+    await zcObs.StopObserving(`/kv/${DATA_SOURCE_ID}/obsTest`)
 });
 
 test('Zest:: Observe 2', async () => {
@@ -169,6 +169,6 @@ test('Zest:: Observe 2', async () => {
         expect(results2[i]).toContain(`this is a test 2 ${i + 1}`)
     }
 
-    zcObs.StopObserving(`/kv/${DATA_SOURCE_ID}/obsTest`)
-    zcObs.StopObserving(`/kv/${DATA_SOURCE_ID}/obsTest2`)
+    await zcObs.StopObserving(`/kv/${DATA_SOURCE_ID}/obsTest`)
+    await zcObs.StopObserving(`/kv/${DATA_SOURCE_ID}/obsTest2`)
 });

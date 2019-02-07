@@ -227,7 +227,7 @@ test('Client:: TSBlob Observe JSON', async () => {
     await sleep(500)
 
     expect(receivedData).toEqual(testData)
-    client.TSBlob.StopObserving(DATA_SOURCE_ID);
+    await client.TSBlob.StopObserving(DATA_SOURCE_ID);
 
 });
 

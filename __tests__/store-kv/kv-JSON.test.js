@@ -52,7 +52,7 @@ test('Client:: KV Observe JSON', async () => {
     await sleep(500)
 
     expect(receivedData).toEqual(testData)
-    client.KV.StopObserving(DATA_SOURCE_ID);
+    await client.KV.StopObserving(DATA_SOURCE_ID);
 
 });
 
@@ -92,7 +92,7 @@ test('Client:: KV Observe key JSON', async () => {
     await sleep(1000)
 
     expect(receivedData).toEqual(testData)
-    client.KV.StopObserving(DATA_SOURCE_ID, 'KeyObserveKey');
+    await client.KV.StopObserving(DATA_SOURCE_ID, 'KeyObserveKey');
 
 });
 
