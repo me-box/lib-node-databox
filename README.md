@@ -47,7 +47,7 @@ DataSourceMetadata objects are used to describe your data source when creating a
                             // are responsible for ensuring this is unique
                             // within your data store.
         StoreType:      "", // The type of store this uses
-                            // (TS,TSBlob or KV)
+                            // (ts,ts/blob or kv)
         IsActuator:  false, // is this an IsActuator? it true other apps can
                             // request write access to this datasource
         Unit:           "", // Text representation of the units
