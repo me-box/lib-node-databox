@@ -1,6 +1,6 @@
-const zestClient = require('./zest.js')
-const arbiterClient = require('./arbiter-client.js')
-const config = require('./config.js')
+const zestClient = require('./lib/zest.js')
+const arbiterClient = require('./lib/arbiter-client.js')
+const config = require('./lib/config.js')
 const url = require('url')
 const EventEmitter = require('events')
 
@@ -8,7 +8,7 @@ const EventEmitter = require('events')
 // storeEndpoint is provided in the DATABOX_ZMQ_ENDPOINT environment variable
 // and arbiterEndpoint is provided by the DATABOX_ARBITER_ENDPOINT environment variable
 // to databox apps and drivers.
-module.exports = function (storeEndpoint, arbiterEndpoint, enableLogging) {
+exports.NewStoreClient = function (storeEndpoint, arbiterEndpoint, enableLogging) {
 
     let zestEndpoint = storeEndpoint
     let zestDealerEndpoint = storeEndpoint.replace(':5555', ':5556')
@@ -181,6 +181,114 @@ module.exports = function (storeEndpoint, arbiterEndpoint, enableLogging) {
     }
 
     return client
+}
+
+let DataSourceMetadataToHypercat = function (endpoint, metadata) {
+    ValidateDataSourceMetadata(metadata)
+
+    var cat = {
+        'item-metadata': [{
+            'rel': 'urn:X-hypercat:rels:hasDescription:en',
+            'val': metadata.Description
+        }, {
+            'rel': 'urn:X-hypercat:rels:isContentType',
+            'val': metadata.ContentType
+        }, {
+            'rel': 'urn:X-databox:rels:hasVendor',
+            'val': metadata.Vendor
+        }, {
+            'rel': 'urn:X-databox:rels:hasType',
+            'val': metadata.DataSourceType
+        }, {
+            'rel': 'urn:X-databox:rels:hasDatasourceid',
+            'val': metadata.DataSourceID
+        }, {
+            'rel': 'urn:X-databox:rels:hasStoreType',
+            'val': metadata.StoreType
+        }],
+        href: endpoint + metadata.DataSourceID
+    }
+
+    if (metadata.IsActuator)
+        cat['item-metadata'].push({
+            'rel': 'urn:X-databox:rels:isActuator',
+            'val': metadata.IsActuator
+        })
+
+    if (metadata.Unit)
+        cat['item-metadata'].push({
+            'rel': 'urn:X-databox:rels:hasUnit',
+            'val': metadata.Unit
+        })
+
+    if (metadata.Location)
+        cat['item-metadata'].push({
+            'rel': 'urn:X-databox:rels:hasLocation',
+            'val': metadata.Location
+        })
+
+    return cat
+}
+exports.DataSourceMetadataToHypercat = DataSourceMetadataToHypercat
+
+let HypercatToSourceDataMetadata = function (hyperCat) {
+
+    let dm = NewDataSourceMetadata()
+
+    if (typeof (hyperCat) === 'string') {
+        hyperCat = JSON.parse(hyperCatString)
+    }
+
+    hyperCat['item-metadata'].forEach(element => {
+        if (element['rel'] == 'urn:X-hypercat:rels:hasDescription:en')
+            dm.Description = element['val']
+
+        if (element['rel'] == 'urn:X-hypercat:rels:isContentType')
+            dm.ContentType = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:hasVendor')
+            dm.Vendor = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:hasType')
+            dm.DataSourceType = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:hasDatasourceid')
+            dm.DataSourceID = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:hasStoreType')
+            dm.StoreType = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:isActuator')
+            dm.IsActuator = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:hasLocation')
+            dm.Location = element['val']
+
+        if (element['rel'] == 'urn:X-databox:rels:hasUnit')
+            dm.Unit = element['val']
+
+    })
+
+    return dm
+}
+exports.HypercatToSourceDataMetadata = HypercatToSourceDataMetadata
+
+exports.GetHttpsCredentials = function () {
+
+    let credentials = {};
+
+    try {
+        //HTTPS certs created by the container mangers for this components HTTPS server.
+        credentials = {
+            key: fs.readFileSync("/run/secrets/DATABOX.pem") || '',
+            cert: fs.readFileSync("/run/secrets/DATABOX.pem") || ''
+        };
+    } catch (e) {
+        console.warn('Warning: No HTTPS certificate not provided HTTPS certificates missing.');
+        credentials = {};
+    }
+
+    return credentials
 }
 
 let _write = async function (arbiterClient, zestClient, path, tokenPath, payload, contentFormat) {
@@ -364,93 +472,6 @@ let ValidateDataSourceMetadata = function (DataSourceMetadata) {
     return true
 }
 
-let DataSourceMetadataToHypercat = function (endpoint, metadata) {
-    ValidateDataSourceMetadata(metadata)
-
-    var cat = {
-        'item-metadata': [{
-            'rel': 'urn:X-hypercat:rels:hasDescription:en',
-            'val': metadata.Description
-        }, {
-            'rel': 'urn:X-hypercat:rels:isContentType',
-            'val': metadata.ContentType
-        }, {
-            'rel': 'urn:X-databox:rels:hasVendor',
-            'val': metadata.Vendor
-        }, {
-            'rel': 'urn:X-databox:rels:hasType',
-            'val': metadata.DataSourceType
-        }, {
-            'rel': 'urn:X-databox:rels:hasDatasourceid',
-            'val': metadata.DataSourceID
-        }, {
-            'rel': 'urn:X-databox:rels:hasStoreType',
-            'val': metadata.StoreType
-        }],
-        href: endpoint + metadata.DataSourceID
-    }
-
-    if (metadata.IsActuator)
-        cat['item-metadata'].push({
-            'rel': 'urn:X-databox:rels:isActuator',
-            'val': metadata.IsActuator
-        })
-
-    if (metadata.Unit)
-        cat['item-metadata'].push({
-            'rel': 'urn:X-databox:rels:hasUnit',
-            'val': metadata.Unit
-        })
-
-    if (metadata.Location)
-        cat['item-metadata'].push({
-            'rel': 'urn:X-databox:rels:hasLocation',
-            'val': metadata.Location
-        })
-
-    return cat
-}
-
-let HypercatToSourceDataMetadata = function (hyperCat) {
-
-    let dm = NewDataSourceMetadata()
-
-    if (typeof (hyperCat) === 'string') {
-        hyperCat = JSON.parse(hyperCatString)
-    }
-
-    hyperCat['item-metadata'].forEach(element => {
-        if (element['rel'] == 'urn:X-hypercat:rels:hasDescription:en')
-            dm.Description = element['val']
-
-        if (element['rel'] == 'urn:X-hypercat:rels:isContentType')
-            dm.ContentType = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:hasVendor')
-            dm.Vendor = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:hasType')
-            dm.DataSourceType = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:hasDatasourceid')
-            dm.DataSourceID = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:hasStoreType')
-            dm.StoreType = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:isActuator')
-            dm.IsActuator = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:hasLocation')
-            dm.Location = element['val']
-
-        if (element['rel'] == 'urn:X-databox:rels:hasUnit')
-            dm.Unit = element['val']
-
-    })
-
-    return dm
-}
 
 let calculatePath = function (aggregation, tagName, filterType, value) {
     let aggregationPath = ''

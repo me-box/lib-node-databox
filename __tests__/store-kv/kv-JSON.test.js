@@ -1,4 +1,4 @@
-const storeClient = require('../../lib/store-client.js')
+const storeClient = require('../../main.js')
 const EventEmitter = require('events');
 
 const STORE_URI = 'tcp://127.0.0.1:5555'
@@ -6,13 +6,13 @@ const ARBITER_URI = 'tcp://127.0.0.1:4444'
 const DATA_SOURCE_ID = Date.now()
 
 test('Client:: KV write JSON', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let res = await client.KV.Write(DATA_SOURCE_ID, 'KeyWrite', { 'TEST': 'data' })
     expect(res).toBe('created')
 });
 
 test('Client:: KV read JSON', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let res = await client.KV.Write(DATA_SOURCE_ID, 'KeyRead', { 'TESTread': 'data' })
     expect(res).toBe('created')
 
@@ -29,7 +29,7 @@ test('Client:: KV Observe JSON', async () => {
         { 'TESTobs': 'data4' },
     ]
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let emitter = await client.KV.Observe(DATA_SOURCE_ID)
 
     let receivedData = [];
@@ -65,7 +65,7 @@ test('Client:: KV Observe key JSON', async () => {
         { 'TESTobsKey': 'data4' },
     ]
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let emitter = await client.KV.ObserveKey(DATA_SOURCE_ID, 'KeyObserveKey')
 
     let receivedData = [];

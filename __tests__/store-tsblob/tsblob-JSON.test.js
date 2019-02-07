@@ -1,4 +1,4 @@
-const storeClient = require('../../lib/store-client.js')
+const storeClient = require('../../main.js')
 const EventEmitter = require('events');
 
 const STORE_URI = 'tcp://127.0.0.1:5555'
@@ -6,13 +6,13 @@ const ARBITER_URI = 'tcp://127.0.0.1:4444'
 const DATA_SOURCE_ID = Date.now()
 
 test('Client:: TSBlob write JSON', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let res = await client.TSBlob.Write(DATA_SOURCE_ID, { 'TEST': 'First data' })
     expect(res).toBe('created')
 });
 
 test('Client:: TSBlob latest JSON', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let res = await client.TSBlob.Write(DATA_SOURCE_ID, { 'TestLatest': 'data' })
     expect(res).toBe('created')
 
@@ -21,14 +21,14 @@ test('Client:: TSBlob latest JSON', async () => {
 });
 
 test('Client:: TSBlob lastN JSON no data', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     res = await client.TSBlob.LastN(DATA_SOURCE_ID + 'missing', 50)
     expect(res).toEqual([])
 });
 
 test('Client:: TSBlob length JSON', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let numRecords = 10;
 
@@ -43,7 +43,7 @@ test('Client:: TSBlob length JSON', async () => {
 
 test('Client:: TSBlob lastN JSON', async () => {
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let testData = [
         { 'TESTLastN': 'data1' },
@@ -74,7 +74,7 @@ test('Client:: TSBlob lastN JSON', async () => {
 
 test('Client:: TSBlob FirstN JSON', async () => {
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let testData = [
         { 'TESTFirstN': 'data1' },
@@ -106,7 +106,7 @@ test('Client:: TSBlob FirstN JSON', async () => {
 
 test('Client:: TSBlob Earliest JSON', async () => {
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let testData = [
         { 'TESTEarliest': 'data1' },
@@ -136,7 +136,7 @@ test('Client:: TSBlob Earliest JSON', async () => {
 
 test('Client:: TSBlob Range JSON', async () => {
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let testData = [
         { 'TESTRange': 'data1' },
@@ -166,7 +166,7 @@ test('Client:: TSBlob Range JSON', async () => {
 
 test('Client:: TSBlob Since JSON', async () => {
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let testData = [
         { 'TESTSince': 'data1' },
@@ -204,7 +204,7 @@ test('Client:: TSBlob Observe JSON', async () => {
         { 'TESTobs': 'data4' },
     ]
 
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     let emitter = await client.TSBlob.Observe(DATA_SOURCE_ID)
 
     let receivedData = [];

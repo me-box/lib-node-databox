@@ -1,23 +1,23 @@
-const storeClient = require('../lib/store-client.js')
+const storeClient = require('../main.js')
 
 const STORE_URI = 'tcp://127.0.0.1:5555'
-const ARBITER_URI = '"tcp://127.0.0.1:4444"'
+const ARBITER_URI = 'tcp://127.0.0.1:4444'
 const DATA_SOURCE_ID = Date.now()
 
 test('Client:: Check initialisation', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     expect(client.zestEndpoint).toBe(STORE_URI)
     expect(client.zestDealerEndpoint).toMatch(/5556/)
 });
 
 test('Client:: Check Env Vars are Loaded', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     expect(client.config.CORE_STORE_KEY).toBe('vl6wu0A@XP?}Or/&BR#LSxn>A+}L)p44/W[wXL3<')
     expect(client.config.ARBITER_TOKEN).toBe('secret')
 });
 
 test('Client:: invalid DataSourceMetadata', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
         await client.RegisterDatasource({})
     } catch (error) {
@@ -26,7 +26,7 @@ test('Client:: invalid DataSourceMetadata', async () => {
 });
 
 test('Client:: valid DataSourceMetadata invalid store type', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
         let dsm = client.NewDataSourceMetadata()
         await client.RegisterDatasource(dsm)
@@ -36,7 +36,7 @@ test('Client:: valid DataSourceMetadata invalid store type', async () => {
 });
 
 test('Client:: valid DataSourceMetadata valid store type', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
         let dsm = client.NewDataSourceMetadata()
         dsm.StoreType = 'ts'
@@ -48,7 +48,7 @@ test('Client:: valid DataSourceMetadata valid store type', async () => {
 });
 
 test('Client:: invalid storeType', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
     try {
         let dsm = client.NewDataSourceMetadata()
         dsm.StoreType = 'fish/pie'
@@ -60,7 +60,7 @@ test('Client:: invalid storeType', async () => {
 
 
 test('Client:: RegisterDatasource', async () => {
-    let client = storeClient(STORE_URI, ARBITER_URI, false)
+    let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
 
     let dsm = client.NewDataSourceMetadata()
     dsm.StoreType = 'ts'
