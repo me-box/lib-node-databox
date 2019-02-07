@@ -1,6 +1,6 @@
 {
-  "name": "nodezestclient",
-  "version": "0.1.0",
+  "name": "node-databox",
+  "version": "0.10.2",
   "description": "A NodeJs Lib for Zest REST over ZeroMQ",
   "main": "main.js",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/me-box/nodeZestClient.git"
+    "url": "git+https://github.com/me-box/lib-node-databox.git"
   },
   "author": "toshbrown",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/me-box/nodeZestClient/issues"
+    "url": "https://github.com/me-box/lib-node-databox/issues"
   },
-  "homepage": "https://github.com/me-box/nodeZestClient#readme",
+  "homepage": "https://github.com/me-box/lib-node-databox#readme",
   "dependencies": {
     "dotenv": "^6.2.0",
     "hexer": "^1.5.0",
