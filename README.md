@@ -63,14 +63,21 @@ DataSourceMetadata objects are used to describe your data source when creating a
 
 **Returns** An object representing the hypercat item represented by DataSourceMetadata.
 
-### HypercatToSourceDataMetadata (hyperCatString)
+### HypercatToDataSourceMetadata (hyperCatString)
 
  Name | Type | Description |
 | ---- | ---- | ----------- |
 | _hyperCatString_ | `String` | A string representation of the hypercat Item representing a data source |
 
-**Returns** A promise that resolves to an object of the form { "DataSourceMetadata": <DataSourceMetadata>, "DataSourceURL":store_url}
+**Returns** an object of the form { "DataSourceMetadata": <DataSourceMetadata>, "DataSourceURL":store_url}
 
+### HypercatToDataStoreUrl (hyperCatString)
+
+ Name | Type | Description |
+| ---- | ---- | ----------- |
+| _hyperCatString_ | `String` | A string representation of the hypercat Item representing a data source |
+
+**Returns** a string holding the store endpoint URL
 
 ## Using the databox core-store
 
@@ -83,7 +90,7 @@ The time series API has support for writing generic JSON blobs (see TSBlob) or d
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _STORE_URI_ | `String` | dataStore to access found in DATABOX_STORE_URL for drivers and in the DATASOURCE_[clientId] for each datasource required by an app |
+| _STORE_URI_ | `String` | dataStore to access found in DATABOX_STORE_URL for drivers and in HypercatToDataStoreUrl( DATASOURCE_[clientId] ) for each datasource required by an app |
 | _ARBITER_URI_ | `String` | the URI to the arbiter available in DATABOX_ARBITER_ENDPOINT env var within databox |
 | _enableLogging_ | `Bool` | Turns on verbose debug output |
 
@@ -259,11 +266,7 @@ These functions allow you to manage unstructured json data in the time series st
 
 > :warning: If data is written into a TimeSeriesBlobStore filtering and aggregation functions are not supported.
 
-The NewStoreClient.TSBlob supports the following functions:
-
-### databox.NewStoreClient.TSBlob (reqEndpoint, enableLogging)
-
-**Returns** a new NewStoreClient.TSBlob that is connected to the provided store.
+The StoreClient.TSBlob supports the following functions:
 
 ### StoreClient.TSBlob.Write (dataSourceID, payload)
 
