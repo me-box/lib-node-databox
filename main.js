@@ -33,12 +33,6 @@ exports.NewStoreClient = function (storeEndpoint, arbiterEndpoint, enableLogging
             return _read(arbiterCli, zestCli, '/cat', '/cat', 'JSON')
         },
 
-        getStoreUrlFromHypercat: function (hypercat) {
-            let dsm = HypercatToSourceDataMetadata(hypercat)
-            let u = url.parse(hypercatObj.href)
-            return u.protocol + '//' + u.host
-        },
-
         //KeyValueClient used to read and write of data key value to the store
         KV: {
             Read: async function (dataSourceID, key, contentFormat = 'JSON') {
@@ -233,12 +227,12 @@ let DataSourceMetadataToHypercat = function (endpoint, metadata) {
 }
 exports.DataSourceMetadataToHypercat = DataSourceMetadataToHypercat
 
-let HypercatToSourceDataMetadata = function (hyperCat) {
+let HypercatToDataSourceMetadata = function (hyperCat) {
 
     let dm = NewDataSourceMetadata()
 
     if (typeof (hyperCat) === 'string') {
-        hyperCat = JSON.parse(hyperCatString)
+        hyperCat = JSON.parse(hyperCat)
     }
 
     hyperCat['item-metadata'].forEach(element => {
@@ -273,7 +267,15 @@ let HypercatToSourceDataMetadata = function (hyperCat) {
 
     return dm
 }
-exports.HypercatToSourceDataMetadata = HypercatToSourceDataMetadata
+exports.HypercatToDataSourceMetadata = HypercatToDataSourceMetadata
+
+exports.HypercatToDataStoreUrl = function (hyperCat) {
+	if (typeof(hyperCat) === 'string') {
+		hyperCat = JSON.parse(hyperCat);
+	}
+	let u = url.parse(hyperCat.href)
+	return u.protocol + '//' + u.host
+}
 
 exports.GetHttpsCredentials = function () {
 
