@@ -90,7 +90,7 @@ The time series API has support for writing generic JSON blobs (see TSBlob) or d
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| _STORE_URI_ | `String` | dataStore to access found in DATABOX_STORE_URL for drivers and in HypercatToDataStoreUrl( DATASOURCE_[clientId] ) for each datasource required by an app |
+| _STORE_URI_ | `String` | dataStore to access found in DATABOX_STORE_URL for drivers and in GetStoreURLFromHypercat( DATASOURCE_[clientId] ) for each datasource required by an app |
 | _ARBITER_URI_ | `String` | the URI to the arbiter available in DATABOX_ARBITER_ENDPOINT env var within databox |
 | _enableLogging_ | `Bool` | Turns on verbose debug output |
 
