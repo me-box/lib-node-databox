@@ -71,13 +71,13 @@ DataSourceMetadata objects are used to describe your data source when creating a
 
 **Returns** an object of the form { "DataSourceMetadata": <DataSourceMetadata>, "DataSourceURL":store_url}
 
-### HypercatToDataStoreUrl (hyperCatString)
+### GetStoreURLFromHypercat (hyperCatString)
 
  Name | Type | Description |
 | ---- | ---- | ----------- |
 | _hyperCatString_ | `String` | A string representation of the hypercat Item representing a data source |
 
-**Returns** a string holding the store endpoint URL
+**Returns** a string holding the store endpoint URL (for use in NewStoreClient)
 
 ## Using the databox core-store
 

@@ -269,7 +269,7 @@ let HypercatToDataSourceMetadata = function (hyperCat) {
 }
 exports.HypercatToDataSourceMetadata = HypercatToDataSourceMetadata
 
-exports.HypercatToDataStoreUrl = function (hyperCat) {
+exports.GetStoreURLFromHypercat = function (hyperCat) {
 	if (typeof(hyperCat) === 'string') {
 		hyperCat = JSON.parse(hyperCat);
 	}
