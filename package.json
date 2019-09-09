@@ -1,6 +1,6 @@
 {
   "name": "node-databox",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "description": "A NodeJs Lib for Zest REST over ZeroMQ",
   "main": "main.js",
   "scripts": {
