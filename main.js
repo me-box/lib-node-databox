@@ -4,6 +4,7 @@ const config = require('./lib/config.js')
 const url = require('url')
 const EventEmitter = require('events')
 const fs = require('fs')
+const rp = require('request-promise-native')
 
 // StoreClient returns a new client to read and write data to stores
 // storeEndpoint is provided in the DATABOX_ZMQ_ENDPOINT environment variable
@@ -489,3 +490,70 @@ let calculatePath = function (aggregation, tagName, filterType, value) {
 
     return '/filter/' + tagName + '/' + filterType + '/' + value + aggregationPath
 }
+
+// ExportClient returns a new export-service client.
+// arbiterEndpoint is provided by the DATABOX_ARBITER_ENDPOINT environment
+// variable to databox apps and drivers.
+exports.NewExportClient = function (arbiterEndpoint, enableLogging) {
+	let arbiterCli = arbiterClient(arbiterEndpoint, enableLogging)
+
+	let client = {
+		config: config,
+		arbiterCli: arbiterCli,
+		enableLogging: enableLogging, 
+
+		Longpoll: async function (destination, payload, id) {
+			let path = '/lp/export'
+			return _export( arbiterCli, path, destination, payload, id, enableLogging )
+		}
+	}
+
+	return client
+}
+
+const exportServiceURL = "https://export-service:8080"
+
+let _export = async function ( arbiterClient, path, destination, payload, id, enableLogging ) {
+	if(payload !== null && typeof payload === 'object') {
+		try {
+			payload = JSON.stringify(payload);
+		} catch (error) {
+			throw `Export Error: invalid payload, ${error}`
+		}
+	}
+	try {
+		let endPoint = url.parse( exportServiceURL )
+		let token = await arbiterClient.requestToken(endPoint.hostname, path, 'POST',
+        		// caveat (export-service specific)
+			{ "destination": destination }
+		)
+		if (enableLogging) {
+			console.log(`Export token for host ${endPoint.hostname} path ${path} POST destination ${destination}: ${token}`)
+		}
+		if (typeof (id) !== 'string') {
+			id = ''
+		}
+		if (enableLogging) {
+			console.log(`Export id ${id}`)
+		}
+		let options = {
+			method: 'POST',
+			json: {
+				id: id,
+				uri: destination,
+				data: payload
+			},
+			url: exportServiceURL + path,
+			agent: config.httpsAgent,
+			headers: {
+				'X-Api-Key': token,
+				'Content-Type' : "application/json"
+			}
+		}
+		let body = await rp( options ) 
+		return body
+	} catch (error ) {
+		throw  (`Export Error: for path ${path} destination ${destination}, ${error}`)
+	}
+}
+
