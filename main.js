@@ -441,7 +441,7 @@ let _registerDatasource = async function (arbiterClient, zestClient, DataSourceM
     try {
         let hyperCatObj = await DataSourceMetadataToHypercat(zestClient.zestEndpoint + '/' + DataSourceMetadata.StoreType + '/', DataSourceMetadata)
         let hyperCatString = JSON.stringify(hyperCatObj)
-        _write(arbiterClient, zestClient, '/cat', '/cat', hyperCatString, 'JSON')
+        return _write(arbiterClient, zestClient, '/cat', '/cat', hyperCatString, 'JSON')
     } catch (error) {
         throw (`RegisterDatasource Error:: ${error}`)
     }

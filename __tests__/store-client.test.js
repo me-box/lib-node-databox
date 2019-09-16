@@ -61,16 +61,33 @@ test('Client:: invalid storeType', async () => {
 
 test('Client:: RegisterDatasource', async () => {
     let client = storeClient.NewStoreClient(STORE_URI, ARBITER_URI, false)
+    try {
+        let dsm = storeClient.NewDataSourceMetadata()
+        dsm.StoreType = 'ts'
+        dsm.DataSourceID = DATA_SOURCE_ID
+        dsm.Description = `this is ds ${DATA_SOURCE_ID}`
+        await client.RegisterDatasource(dsm)
+        await sleep(500)
+        let catalogue = await client.GetDatasourceCatalogue()
+        expect(JSON.stringify(catalogue)).toMatch(new RegExp(`this is ds ${DATA_SOURCE_ID}`, ""))
+    } catch (error) {
+	expect(error).toBe(null)
+    }
+});
 
-    let dsm = storeClient.NewDataSourceMetadata()
-    dsm.StoreType = 'ts'
-    dsm.DataSourceID = DATA_SOURCE_ID
-    dsm.Description = `this is ds ${DATA_SOURCE_ID}`
-    await client.RegisterDatasource(dsm)
-    await sleep(500)
-    let catalogue = await client.GetDatasourceCatalogue()
-    expect(JSON.stringify(catalogue)).toMatch(new RegExp(`this is ds ${DATA_SOURCE_ID}`, ""))
+const TEST_HYPERCAT='{"item-metadata":[{"rel":"urn:X-hypercat:rels:hasDescription:en","val":"hello world actuator"},{"rel":"urn:X-hypercat:rels:isContentType","val":"application/json"},{"rel":"urn:X-databox:rels:hasVendor","val":"Databox Inc."},{"rel":"urn:X-databox:rels:hasType","val":"helloWorldActuator"},{"rel":"urn:X-databox:rels:hasDatasourceid","val":"helloWorldActuator"},{"rel":"urn:X-databox:rels:hasStoreType","val":"ts/blob"},{"rel":"urn:X-databox:rels:isActuator","val":true},{"rel":"urn:X-databox:rels:hasUnit","val":" "},{"rel":"urn:X-databox:rels:hasLocation","val":" "}],"href":"tcp://driver-helloworld-node-core-store:5555/ts/blob/helloWorldActuator"}';
 
+test('Client:: GetStoreURLFromHypercat', async () => {
+	let url = storeClient.GetStoreURLFromHypercat( TEST_HYPERCAT )
+	expect( url ).toBe( 'tcp://driver-helloworld-node-core-store:5555' )
+});
+
+test('Client:: HypercatToDataSourceMetadata', async () => {
+	let dsm = storeClient.HypercatToDataSourceMetadata( TEST_HYPERCAT )
+	expect( dsm.DataSourceID ).toBe( 'helloWorldActuator' )
+        expect( dsm.DataSourceType ).toBe( 'helloWorldActuator' )
+	expect( dsm.StoreType ).toBe( 'ts/blob' )
+	expect( dsm.IsActuator ).toBe( true )
 });
 
 async function sleep(timeout) {

@@ -21,29 +21,34 @@ test('Arbiter:: Request token valid', async () => {
 test('Arbiter:: Request token for unauthorized path', async () => {
     let arbiter = arbiterClient(config.ARBITER_ENDPOINT, false)
     try {
-        expect(arbiter.requestToken("127.0.0.1", "/", "post", "")).toThrow('Error requesting token from arbiter for / unauthorized');
+        await arbiter.requestToken("127.0.0.1", "/", "post", "")
+        expect(true).toBe(false)
     } catch (error) {
-
+        expect(error).toBe('Error requesting token from arbiter for / unauthorized');
     }
 
 });
 
-test('Arbiter:: Request token for unauthorized method', async () => {
+// actually this is authorised!
+/*test('Arbiter:: Request token for unauthorized method', async () => {
     let arbiter = arbiterClient(config.ARBITER_ENDPOINT, false)
     try {
-        expect(arbiter.requestToken("127.0.0.1", "/cat", "DELETE", "")).toThrow('Error requesting token from arbiter for / unauthorized');
+        await arbiter.requestToken("127.0.0.1", "/cat", "DELETE", "")
+        expect(true).toBe(false)
     } catch (error) {
-
+	expect(error).toBe('Error requesting token from arbiter for /cat unauthorized');
     }
 
 });
+*/
 
 test('Arbiter:: Request token for authorized method', async () => {
     let arbiter = arbiterClient(config.ARBITER_ENDPOINT, false)
     try {
-        expect(arbiter.requestToken("127.0.0.1", "/cat", "GET", "")).toThrow('Error requesting token from arbiter for / unauthorized');
+        let token = await arbiter.requestToken("127.0.0.1", "/cat", "GET", "")
+        expect(typeof (token)).toBe('string')
     } catch (error) {
-
+        expect(error).toBe(null)
     }
 
 });
@@ -51,9 +56,10 @@ test('Arbiter:: Request token for authorized method', async () => {
 test('Arbiter:: Request token for invalid method', async () => {
     let arbiter = arbiterClient(config.ARBITER_ENDPOINT, false)
     try {
-        expect(arbiter.requestToken("127.0.0.1", "/cat", "FISH", "")).toThrow('Error requesting token from arbiter for / unauthorized');
+        await arbiter.requestToken("127.0.0.1", "/cat", "FISH", "")
+        expect(true).toBe(false)
     } catch (error) {
-
+        expect(error).toBe('Error requesting token from arbiter for /cat unauthorized');
     }
 
 });
